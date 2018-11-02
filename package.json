@@ -1,0 +1,19 @@
+{
+  "name": "skeletons",
+  "version": "0.0.0",
+  "description": "check your data structure in code",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "skeletons",
+    "schema",
+    "data"
+  ],
+  "author": "timtnlee",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
