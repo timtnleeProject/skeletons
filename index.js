@@ -1,11 +1,13 @@
 const staticFactory = require('./static')
 const protoFactory = require('./proto')
+const protoDataFactory = require('./proto_data')
 
-function Skeleton(schema) {
+function Skeletons(schema) {
   this.schema = schema
 }
 
-staticFactory(Skeleton)
-protoFactory(Skeleton)
+staticFactory(Skeletons)
+protoFactory(Skeletons)
+protoDataFactory(Skeletons)
 
-module.exports = Skeleton
+module.exports = Skeletons

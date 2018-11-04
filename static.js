@@ -1,48 +1,69 @@
-function staticFactory(Skeleton) {
-  Skeleton.String = function(opt){
+function staticFactory(Skeletons) {
+  Skeletons.String = function(opt){
     const extend_opt = {
       default: false
     }
-    return new Skeleton.Types(opt,'StringFn', extend_opt)
+    return new Skeletons.Types(opt,'StringFn', extend_opt)
   }
   
-  Skeleton.Number = function(){}
-  Skeleton.Array = function(opt){
+  Skeletons.Number = function(){}
+  Skeletons.Array = function(opt){
     const extend_opt = {
       item: null,
     }
-    return new Skeleton.Types(opt, 'ArrayFn', extend_opt)
+    return new Skeletons.Types(opt, 'ArrayFn', extend_opt)
   }
-  Skeleton.Boolean = function(opt) {
+  Skeletons.Boolean = function(opt) {
     const extend_opt = {
 
     }
-    return new Skeleton.Types(opt, 'BooleanFn', extend_opt)
+    return new Skeletons.Types(opt, 'BooleanFn', extend_opt)
   }
-  Skeleton.Object = function(){}
-  Skeleton.Any = function(opt) {
+  Skeletons.Number = function(opt) {
+    const extend_opt = {
+      allowNaN: true
+    }
+    return new Skeletons.Types(opt, 'NumberFn', extend_opt)
+  }
+  Skeletons.Object = function(opt){
+    const extend_opt = {
+      class: null,
+    }
+    return new Skeletons.Types(opt, 'ObjectFn', extend_opt)
+  }
+  Skeletons.MapObject = function(opt){
+    const extend_opt = {
+      keyValidator: undefined,
+      item: undefined
+    }
+    return new Skeletons.Types(opt, 'MapObjectFn', extend_opt)
+  }
+  Skeletons.Null = function(opt) {
+    return new Skeletons.Types(opt, 'NullFn', {})
+  }
+  Skeletons.Any = function(opt) {
     const extend_opt = {
       exclude: null,
       include: null
     }
-    return new Skeleton.Types(opt, 'AnyFn', extend_opt)
+    return new Skeletons.Types(opt, 'AnyFn', extend_opt)
   }
-  Skeleton.Types = function(opt,fname, more_opt){
+  Skeletons.Types = function(opt,fname, more_opt){
     const glob_opt = {
       required: true,
-      validator: null
+      default: undefined,
+      validator: null,
     }
     const default_opt = Object.assign(glob_opt, more_opt)
-    this.opt = Skeleton.setDefault(opt, default_opt)
+    this.opt = Skeletons.setDefault(opt, default_opt)
     this.fname = fname
-    this.default_opt = default_opt
   }
-  Skeleton.Warnings = function(opt){
-    const options = new Skeleton({
+  Skeletons.Warnings = function(opt){
+    const options = new Skeletons({
       code: Number,
       log: String,
       type: String,
-      depth: Skeleton.Array()
+      depth: Skeletons.Array()
     })
     options.validate(opt ,{
       throw: true //避免maximum call stack
@@ -51,12 +72,12 @@ function staticFactory(Skeleton) {
       this[k] = opt[k]
     }
   }
-  Skeleton.typeof = function(data){
+  Skeletons.typeof = function(data){
     return (data)===null ? 'null': ( (Array.isArray(data))?'array': typeof data )
   }
-  Skeleton.setDefault = function(opt, default_opt) {
+  Skeletons.setDefault = function(opt, default_opt) {
     if(!opt) opt = default_opt
-    if(Skeleton.typeof(opt)!=='object') throw 'Skeleton.valid(data, options), options must be object'
+    if(Skeletons.typeof(opt)!=='object') throw 'Skeletons.valid(data, options), options must be object'
     
     //options
     for(let k in default_opt) {

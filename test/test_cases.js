@@ -1,6 +1,6 @@
 const assert = require('assert')
 
-const Skeleton = require('../index')
+const Skeletons = require('../index')
 
 describe('test cases', function(){
   describe('invalid input' ,function(){
@@ -10,10 +10,10 @@ describe('test cases', function(){
     }
     it('input not object', function(){
       let dataset = [undefined,0,false,null,function(){},1]
-      let skeleton = new Skeleton(schema)
+      let skeletons = new Skeletons(schema)
       dataset.forEach(data=>{
-        skeleton.validate(data, { console: false })
-        const warn = skeleton.warnings
+        skeletons.validate(data, { console: false })
+        const warn = skeletons.warnings
         assert.equal(warn.length,1)
         assert.deepEqual(warn[0].depth, [])
         assert.equal(warn[0].code, 1)
@@ -30,9 +30,9 @@ describe('test cases', function(){
         a: 2,
         b: 1
       }
-      let skeleton = new Skeleton(schema)
-      skeleton.validate(data, { console: false })
-      const warn = skeleton.warnings
+      let skeletons = new Skeletons(schema)
+      skeletons.validate(data, { console: false })
+      const warn = skeletons.warnings
       assert.equal(warn.length,1)
       assert.deepEqual(warn[0].depth, ['b'])
       assert.equal(warn[0].code, 0)
@@ -42,9 +42,9 @@ describe('test cases', function(){
       let data = {
         a: 2,
       }
-      let skeleton = new Skeleton(schema)
-      skeleton.validate(data, { console: false })
-      const warn = skeleton.warnings
+      let skeletons = new Skeletons(schema)
+      skeletons.validate(data, { console: false })
+      const warn = skeletons.warnings
       assert.equal(warn.length,1)
       assert.deepEqual(warn[0].depth, ['b'])  
       assert.equal(warn[0].code, 0)
@@ -71,9 +71,9 @@ describe('test cases', function(){
           c2: true
         }
       }
-      let skeleton = new Skeleton(schema)
-      skeleton.validate(data, { console: false })
-      const warn = skeleton.warnings
+      let skeletons = new Skeletons(schema)
+      skeletons.validate(data, { console: false })
+      const warn = skeletons.warnings
       assert.equal(warn.length,1)
       assert.deepEqual(warn[0].depth, ['c','c1'])  
       assert.equal(warn[0].code, 0)
@@ -86,9 +86,9 @@ describe('test cases', function(){
           c1: true,
         }
       }
-      let skeleton = new Skeleton(schema)
-      skeleton.validate(data, { console: false })
-      const warn = skeleton.warnings
+      let skeletons = new Skeletons(schema)
+      skeletons.validate(data, { console: false })
+      const warn = skeletons.warnings
       assert.equal(warn.length,1)
       assert.deepEqual(warn[0].depth, ['c','c2'])  
       assert.equal(warn[0].code, 0)

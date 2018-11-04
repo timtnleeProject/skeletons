@@ -1,12 +1,12 @@
-const Skeleton = require('./index')
+const Skeletons = require('./index')
 
 // let schema_a = {
-//   // a: Skeleton.String(),
+//   // a: Skeletons.String(),
 //   b: String,
 //   c: {
 //     c1: Number
 //   },
-//   d: Skeleton.Array({
+//   d: Skeletons.Array({
 //     item: {
 //       x: String
 //     }
@@ -24,27 +24,42 @@ const Skeleton = require('./index')
 //     y:2
 //   }]
 // }
-// let skeleton = new Skeleton(schema_a)
-// skeleton.validate(data_a)
+// let skeletons = new Skeletons(schema_a)
+// skeletons.validate(data_a)
 
 let schema_b = {
-  a:Skeleton.String(),
-  b_reverse: Skeleton.Boolean(),
-  b: Skeleton.Array({
-    item: Skeleton.Boolean({
+  a:Skeletons.String(),
+  b_reverse: Skeletons.Boolean(),
+  b: Skeletons.Array({
+    item: Skeletons.Boolean({
       validator: function(val, data){ return val=== !data.b_reverse }
     })
   }),
   age: Number,
-  isAdult: Skeleton.Boolean({
+  isAdult: Skeletons.Boolean({
     validator: (val, data)=> val === (data.age>=18) 
   }),
-  d: Skeleton.String({
+  d: Skeletons.String({
     required: false
   }),
-  any: Skeleton.Any({
-    include: [String,Number]
+  any: Skeletons.Any({
+    exclude: [Number]
+  }),
+  obj: Skeletons.Object({
+    object: {
+      a: Skeletons.Number({
+        allowNaN: false
+      })
+    }
+  }),
+  keys: Skeletons.MapObject({
+    keyValidator: (val)=>val.length===5,
+    item: Boolean
   })
+  // keys: Skeletons.MapObject({
+  //   key: (k)=>k.length===5,
+  //   item: Boolean
+  // })
 }
 
 let data = {
@@ -53,16 +68,22 @@ let data = {
   b: [false],
   age: 6,
   isAdult: false,
+  any: 'a',
+  obj : {
+    a: NaN
+  },
+  keys: {
+    akskd: true,
+    dkkdd: false
+  }
 }
 
-let skeleton2 = new Skeleton(schema_b)
-skeleton2.validate(data)
+let skeletons2 = new Skeletons(schema_b)
+skeletons2.validate(data)
+console.log(skeletons2.valid)
 
-let s = Skeleton.Array({
-  item: 1
-})
 
-let check = new Skeleton(Skeleton.Array({
-  item: 1
-}))
-check.validate([1])
+// let check = new Skeletons(Skeletons.Array({
+//   item: Number
+// }))
+// check.validate([1])
