@@ -19,54 +19,44 @@ describe('Skeletons', function(){
       }
       let skeletons = new Skeletons(schema_a)
       schema_a.a = 1
-      assert.equal(skeletons.schema.a,1)
+      assert.strictEqual(skeletons.schema.a,1)
     })
   })
-
-  describe('Skeletons.prototype.validate', function(){
-    it('default options' ,function(){
-      let skeletons = new Skeletons({})
-      const expect_default = {
-        dataName: 'data',
-        schemaName: 'schema',
-        console: true,
-        throw: false,
-      }
-      skeletons.validate({})
-      for(let k in expect_default) {
-        if(k!=='root') assert.equal(expect_default[k],skeletons[k])
-        else assert.deepEqual(skeletons,skeletons.root)
-      }
-    }) 
-
-    it('assign options' ,function(){
-      let skeletons = new Skeletons({})
-      const root = { a:1, b:2 }
-      const options = {
-        dataName: 'mydata',
-        schemaName: 'options',
-        console: false,
-        throw: true,
-        root,
-      }
-      skeletons.validate({}, options)
+  describe('default options', function(){
+    const options = {
+      console: false,
+      throw: true,
+      dataName: 'data123',
+      schmaName: 'schema123',
+    }
+    const skeletons = new Skeletons({}, options)
+    it('default options setup', function(){
       for(let k in options) {
-        if(k!=='root') assert.equal(options[k],skeletons[k])
-        else assert.deepEqual(root,skeletons.root)
+        assert.strictEqual(options[k], skeletons.default[k])
       }
     })
-    it('invalid schema' ,function(){
-      let skeletons = new Skeletons({
-        a: 1
-      })
-      try {
-        skeletons.validate({a:1}, {console: false})
-      } catch (error) {
-        let warn = skeletons.warnings
-        assert.equal(skeletons.valid, false)
-        assert.equal(warn.length, 1)
-        assert.equal(warn[0].code,99)
-        assert.deepEqual(warn[0].depth,['a'])
+    it('Skeletons.prototype.validate use default options' ,function(){
+      skeletons.validate({})
+      for(let k in options) {
+        assert.strictEqual(skeletons[k],options[k])
+      }
+    })
+    it('Skeletons.prototype.validate use new options', function(){
+      const new_options = {
+        console: true,
+        throw: false,
+        dataName: 'myData',
+        schmaName: 'mySchema'
+      }
+      skeletons.validate({}, new_options)
+      for(let k in new_options) {
+        assert.strictEqual(skeletons[k],new_options[k])
+      }
+    })
+    it('default options remain the same', function(){
+      skeletons.validate({})
+      for(let k in options) {
+        assert.strictEqual(skeletons[k],options[k])
       }
     })
   })

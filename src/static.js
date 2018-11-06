@@ -1,12 +1,9 @@
 function staticFactory(Skeletons) {
   Skeletons.String = function(opt){
-    const extend_opt = {
-      default: false
-    }
+    const extend_opt = {}
     return new Skeletons.Types(opt,'StringFn', extend_opt)
   }
   
-  Skeletons.Number = function(){}
   Skeletons.Array = function(opt){
     const extend_opt = {
       item: null,
@@ -28,15 +25,21 @@ function staticFactory(Skeletons) {
   Skeletons.Object = function(opt){
     const extend_opt = {
       class: null,
+      object: null
     }
     return new Skeletons.Types(opt, 'ObjectFn', extend_opt)
   }
   Skeletons.MapObject = function(opt){
     const extend_opt = {
-      keyValidator: undefined,
-      item: undefined
+      keyValidator: null,
+      item: null
     }
     return new Skeletons.Types(opt, 'MapObjectFn', extend_opt)
+  }
+  Skeletons.Function = function(opt){
+    const extend_opt = {
+    }
+    return new Skeletons.Types(opt, 'FunctionFn', extend_opt)
   }
   Skeletons.Null = function(opt) {
     return new Skeletons.Types(opt, 'NullFn', {})
@@ -74,6 +77,14 @@ function staticFactory(Skeletons) {
   }
   Skeletons.typeof = function(data){
     return (data)===null ? 'null': ( (Array.isArray(data))?'array': typeof data )
+  }
+  Skeletons.getKeyStr = function(depth) {
+    let keystr = ''
+    depth.forEach(k => {
+      const kstr = (typeof k ==='string')?`'${k}'`:k
+      keystr += `[${kstr}]`
+    })
+    return (keystr)?keystr: ' '
   }
   Skeletons.setDefault = function(opt, default_opt) {
     if(!opt) opt = default_opt

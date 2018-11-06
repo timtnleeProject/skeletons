@@ -2,28 +2,19 @@ const assert = require('assert')
 
 const Skeletons = require('../index')
 
-const types = [
-  'String',
-  'Boolean',
-  'Array',
-  'Object',
-  'Number',
-  'Null',
-  'Any',
-  'MapObject',
-]
+const { types } = require('./testdata')
 describe('Skeletons.Types', function(){
   it('new Skeletons.Types()' ,function(){
     const test = new Skeletons.Types({b:true},'test',{b:false})
-    assert.equal(test.opt.b,true)
-    assert.equal(test.fname,'test')
+    assert.strictEqual(test.opt.b,true)
+    assert.strictEqual(test.fname,'test')
   })
 })
 describe('All Skeletons Types' ,function(){
   describe('All Type static function exist' ,function(){
     for(let type of types) {
       it(`static function Skeletons.${type} exist`, function(){
-        assert.equal(typeof Skeletons[type],'function')
+        assert.strictEqual(typeof Skeletons[type],'function')
       })
     }
   })
@@ -32,7 +23,7 @@ describe('All Skeletons Types' ,function(){
       it(`static function Skeletons.${type} exist`, function(){
         const skType = Skeletons[type]()
         assert(skType instanceof Skeletons.Types)
-        assert.equal(skType.fname, type+'Fn')
+        assert.strictEqual(skType.fname, type+'Fn')
       })
     }
   })
@@ -41,7 +32,7 @@ describe('All Skeletons Types' ,function(){
     for(let type of types) {
       const fname = type+'Fn'
       it(`Skeletons.prototype.${fname} exist`, function(){
-        assert.equal(typeof skeletons[fname],'function')
+        assert.strictEqual(typeof skeletons[fname],'function')
       })
     }
   })

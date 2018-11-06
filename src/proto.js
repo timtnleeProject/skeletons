@@ -1,14 +1,9 @@
 function protoFatory(Skeletons) {
   Skeletons.prototype.validate = function(data, opt) {
-    const default_opt = {
-      dataName: 'data',
-      schemaName: 'schema',
-      console: true,
+    const default_opt = Object.assign({
       root: this,
       isbranch: false, //驗證nested的資料，不throw也不console
-      throw: false,
-      objectStrictKeys: false
-    }
+    },this.default)
     opt = Skeletons.setDefault(opt, default_opt)
     for(let k in opt) {
       this[k] = opt[k]
@@ -66,14 +61,6 @@ function protoFatory(Skeletons) {
     })
     return { schema_deep, data_deep}
   }
-  Skeletons.prototype.getKeyStr = function(depth) {
-    let keystr = ' '
-    depth.forEach(k => {
-      const kstr = (typeof k ==='string')?`'${k}'`:k
-      keystr += `[${kstr}]`
-    })
-    return keystr
-  }
   Skeletons.prototype.warn = function (depth, log, code) {
     if (this.valid === true)
       this.valid = false
@@ -106,7 +93,7 @@ function protoFatory(Skeletons) {
       type = '[Wrong Schema]'
       break
     }
-    const keystr = this.getKeyStr(depth) //keystr only
+    const keystr = Skeletons.getKeyStr(depth) //keystr only
     const output = `Skeletons Warn: ${type} at ${source}${keystr}: ${log}`
     this.warnings.push(new Skeletons.Warnings({
       code,
@@ -122,6 +109,7 @@ function protoFatory(Skeletons) {
     if(this.console) return console.log(output)
   }
   Skeletons.prototype.useOriginWarn = function({ warnings,originDepth,schemaName}) { 
+    //useOriginWarn的schemaName需要自己組，因為schema結構和Data不同 (會用Skeletons static function)
     warnings.forEach(warn=>{
       const origin_name = this.schema_name
       this.schemaName = schemaName

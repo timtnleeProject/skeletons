@@ -4,11 +4,11 @@ const Skeletons = require('../index')
 
 const { dataset } = require('./testdata')
 
-let skeletons = new Skeletons(Skeletons.String(), { console: false })
+let skeletons = new Skeletons(Skeletons.Boolean(), { console: false })
 
-describe('Skeletons.String', function(){
+describe('Skeletons.Boolean', function(){
   describe('default options' ,function(){
-    it('valid',function(){
+    it('default options',function(){
       const expect = {
         validator: null,
         required: true,
@@ -17,8 +17,9 @@ describe('Skeletons.String', function(){
       assert.deepEqual(skeletons.schema.opt,expect)
     })
   })
-  describe('not String' ,function(){
-    dataset.not('string').forEach(d=>{
+  
+  describe('not Boolean' ,function(){
+    dataset.not(false).forEach(d=>{
       it(`data: ${d}`,function(){
         skeletons.validate(d)
         assert.strictEqual(skeletons.valid, false)

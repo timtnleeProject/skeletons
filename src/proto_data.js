@@ -32,7 +32,7 @@ module.exports = function (Skeletons) {
         if(!item_schema.valid) this.useOriginWarn({
           warnings: item_schema.warnings,
           originDepth: [...depth,i],
-          schemaName: 'Skeletons.Array({ item }) item'
+          schemaName: this.schemaName + Skeletons.getKeyStr(depth) + ', Skeletons.Array({ item }) item'
         })
       })
     }
@@ -56,7 +56,7 @@ module.exports = function (Skeletons) {
         this.useOriginWarn({
           warnings: schema.warnings,
           originDepth: depth,
-          schemaName: this.schemaName + this.getKeyStr(depth)
+          schemaName: this.schemaName + Skeletons.getKeyStr(depth)
         })
       }
     }
@@ -81,11 +81,14 @@ module.exports = function (Skeletons) {
           this.useOriginWarn({
             warnings: schema.warnings,
             originDepth: [...depth,k],
-            schemaName: this.schemaName + this.getKeyStr(depth) + '[\'item\']'
+            schemaName: this.schemaName + Skeletons.getKeyStr(depth) + ', Skeletons.MapObject({ item })'
           })
         }
       }
     }
+  }
+  Skeletons.prototype.FunctionFn = function(opt, depth) {
+    this.SOP(opt,depth, 'function', (val)=> Skeletons.typeof(val)==='function')
   }
   Skeletons.prototype.NullFn = function (opt, depth){
     this.SOP(opt, depth, 'null', (val)=> Skeletons.typeof(val)==='null')
