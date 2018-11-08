@@ -137,9 +137,9 @@ There are three types of schema
 
 ### premitive types **function**
 
-* String
-* Number
-* Boolean
+* String : define a string
+* Number : define a number
+* Boolean : define a boolean
 
 Only **premitive types** function, **do not use** other functions like *Object*, *Array*.
 
@@ -188,7 +188,7 @@ To allow dynamic keys in object, use [MapObject]().
 
 ### call Skeletons static function
 
-* Skeletons.Number()
+* Skeletons.Number() : define a 
 * Skeletons.String()
 * Skeletons.Boolean()
 * Skeletons.Null()
@@ -197,6 +197,8 @@ To allow dynamic keys in object, use [MapObject]().
 * Skeletons.Object()
 * Skeletons.Function()
 * Skeletons.MapObject()
+
+See [Skeletons static function][static] for more options you can use.
 
 ## Validation
 
@@ -279,4 +281,5 @@ for example in [Usage](#usage), warnings should look like below :
 
 For more information about warnings after validation, see [rule.warnings]()
 
+[static]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function
 [required]:http://googe.com
