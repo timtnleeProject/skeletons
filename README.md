@@ -1,5 +1,7 @@
 # Skeletons
 
+[![Build Status](https://travis-ci.com/timtnleeProject/skeletons.svg?branch=master)](https://travis-ci.com/timtnleeProject/skeletons) [![npm version](https://badge.fury.io/js/skeletons.svg)](https://badge.fury.io/js/skeletons)
+
 * Skeleton**s** is a pure javascript library that helps you validate data structure in programming.
 
 * Define your rules, validate data sources and parameters to make sure they meet your expectations.
@@ -16,7 +18,7 @@ if(typeof data.age && !isNaN(data.age)) { /* ... */ }
 //....
 ```
 
-Skeletons make sure all data sources meet your expectation, let you focus on other things in programming.
+Skeletons makes sure all data match your rule, lets you focus on other things in programming.
 
 ```javascript
 const Skeletons = require('skeletons')
@@ -50,7 +52,7 @@ const data = {
       name: 'Alex',
       id: 'zkfap1d',
     },
-    {     
+    {
       name: 'Leo',
     }
   ],
@@ -70,10 +72,9 @@ rule.validate(data)
 rule.valid //false
 ```
 
-
 ## Installation
 
-### Nodejs
+### nodejs
 
 ```linux
 npm i --save skeletons
@@ -89,7 +90,7 @@ import Skeletons from 'skeletons'
 
 ### browser
 
-script for browser at `/dist/skeletons.min.js` 
+script for browser at `/dist/skeletons.min.js`
 
 unpkg cdn : `unpkg.com/skeletons@:version/dist/skeletons.min.js`
 
@@ -99,7 +100,7 @@ link
 
 ## Must Know
 
-### Null
+### null
 
 In javascript, `null` is an object.
 
@@ -112,7 +113,7 @@ So when define schema to be object but got `null`, validation will fail.
 
 To define a `null` value schema, use Skeletons.Null()
 
-### Array
+### array
 
 In javascript, array is also an object
 
@@ -124,7 +125,7 @@ However Skeletons will distinguish array from object.
 
 To define an array schema, use Skeletons.Array()
 
-### Undefined
+### undefined
 
 For every undefined value, validation will fail.
 
@@ -134,15 +135,15 @@ To allow undefined, see [required]()
 
 There are three types of schema
 
-### Premitive types **function**
+### premitive types **function**
 
 * String
 * Number
 * Boolean
 
-Only **premitive types** function, **do not use** other functions like *Object*, *Array*. 
+Only **premitive types** function, **do not use** other functions like *Object*, *Array*.
 
-### Use object literal to define keys/values
+### use object literal to define keys/values
 
 To defined deeper keys and values in object
 
@@ -160,7 +161,7 @@ To defined deeper keys and values in object
 
 This type of schema define an object that has exactly keys.
 
-Validation for data that missing keys or has extra keys will fail. 
+Validation for data that missing keys or has extra keys will fail.
 
 ```javascript
 const rule = new Skeletons({
@@ -185,7 +186,7 @@ To allow a undefined property, see [required]().
 
 To allow dynamic keys in object, use [MapObject]().
 
-### Call Skeletons static function
+### call Skeletons static function
 
 * Skeletons.Number()
 * Skeletons.String()
@@ -197,7 +198,7 @@ To allow dynamic keys in object, use [MapObject]().
 * Skeletons.Function()
 * Skeletons.MapObject()
 
-## validation
+## Validation
 
 ### create rule & validate
 
@@ -257,22 +258,25 @@ rule.valid //true
 After `rule.validate()`, `rule.warnings` will be an array contains informations about invalid data.
 
 for example in [Usage](#usage), warnings should look like below :
+
 ```javascript
-[ 
-  { 
+[
+  {
     code: 0, //code to identify warning type
     log: 'expect [string] but got [undefined]', // message
     type: '[Unexpected Type]',
     depth: [ 'friends', 1, 'id' ] //object keys show where validation fail:
     // at data['friends'][1]['id']
   },
-  { 
+  {
     code: 2,
     log: 'validation failed',
     type: '[Value invalid]',
-    depth: [ 'grownup' ] 
-  } 
+    depth: [ 'grownup' ]
+  }
 ]
 ```
 
 For more information about warnings after validation, see [rule.warnings]()
+
+[required]:http://googe.com
