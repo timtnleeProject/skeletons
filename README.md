@@ -96,7 +96,8 @@ unpkg cdn : `unpkg.com/skeletons@:version/dist/skeletons.min.js`
 
 ## Document
 
-link
+* [document][doc]
+* [static function][static]
 
 ## Must Know
 
@@ -210,7 +211,7 @@ After new a `rule` member, call method `validate(data)` to validate data
 let schema = Boolean
 let rule = new Skeletons(schema)
 
-rule.validate(1)
+rule.validate(1) //this also return rule itself
 ```
 
 ### set options
@@ -224,8 +225,7 @@ let rule = new Skeletons(Boolean, {
   dataName: 'datasource' //data name show in warning message
   schemName: 'mySchema' //schema name show in warning message
 })
-
-rule.validate(1)
+.validate(1)
 //Skeletons Warn: [Unexpected Type] at datasource : expect [boolean] but got [undefined]
 ```
 
