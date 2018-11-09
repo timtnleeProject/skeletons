@@ -92,7 +92,7 @@ import Skeletons from 'skeletons'
 
 script for browser at `/dist/skeletons.min.js`
 
-unpkg cdn : `unpkg.com/skeletons@:version/dist/skeletons.min.js`
+unpkg cdn : `https://unpkg.com/skeletons@:version/dist/skeletons.min.js`
 
 ## Document
 

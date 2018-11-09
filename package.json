@@ -10,8 +10,11 @@
   "keywords": [
     "skeletons",
     "schema",
-    "data"
+    "validation",
+    "data",
+    "json"
   ],
+  "github":"https://github.com/timtnleeProject/skeletons",
   "author": "timtnlee",
   "license": "MIT",
   "devDependencies": {
