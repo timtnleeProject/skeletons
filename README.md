@@ -4,7 +4,7 @@
 
 * Skeleton**s** is a pure javascript library that helps you validate data structure in programming.
 
-* Define your rules, validate data sources and parameters to make sure they meet your expectations.
+* Define your rules, validate data sources and parameters/arguments to make sure they meet your expectations.
 
 ## Usage
 
@@ -18,7 +18,7 @@ if(typeof data.age && !isNaN(data.age)) { /* ... */ }
 //....
 ```
 
-Skeletons makes sure all data match your rule, lets you focus on other things in programming.
+Skeletons provide an intuitive way to define rule that makes sure all data meet your expectations, lets you focus on other things in programming.
 
 ```javascript
 const Skeletons = require('skeletons')
