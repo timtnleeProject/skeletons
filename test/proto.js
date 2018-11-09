@@ -48,7 +48,11 @@ describe('Skeletons.prototype',function(){
         assert.deepEqual(warn[0].depth,['a'])
       }
     })
-
+    it('return rule' ,function(){
+      let rule = new Skeletons({})
+      let rule2 = rule.validate({})
+      assert.strictEqual(rule, rule2)
+    })
   })    
   describe('validate => lookup execute count' ,function(){
     //isbranch的 lookup 無法套用 因此Skeletons.Array等另外測

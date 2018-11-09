@@ -31,7 +31,16 @@ describe('Skeletons.MapObject', function(){
     })
   })
   describe('item', function(){
-
+    let rule = new Skeletons(Skeletons.MapObject({
+      item: String
+    }))
+    rule.validate({
+      anykeys: 1
+    })
+    it('validate' ,function(){
+      assert.strictEqual(rule.valid, false)
+      assert.deepEqual(rule.warnings[0].depth, ['anykeys'])
+    })
   })
   describe('keyValidator', function(){
     let testleton = new Skeletons(null,{console: false})

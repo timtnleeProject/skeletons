@@ -13,6 +13,7 @@ function protoFatory(Skeletons) {
     this.valid = true
     this.warnings = []
     this.lookup([])
+    return this
   }
   Skeletons.prototype.lookup = function (depth) {
     depth = depth || []

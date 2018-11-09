@@ -129,7 +129,7 @@ To define an array schema, use Skeletons.Array()
 
 For every undefined value, validation will fail.
 
-To allow undefined, see [required]()
+To allow undefined, see [options.required][required].
 
 ## Define Schema
 
@@ -182,21 +182,21 @@ rule.validate({
 //Skeletons Warn: [Unknown Property] at data : property 'z' not defined in schema
 ```
 
-To allow a undefined property, see [required]().
+To allow a undefined property, see [options.required][required].
 
-To allow dynamic keys in object, use [MapObject]().
+To allow dynamic keys in object, use [MapObject][mapobject].
 
 ### call Skeletons static function
 
-* Skeletons.Number() : define a 
-* Skeletons.String()
-* Skeletons.Boolean()
-* Skeletons.Null()
-* Skeletons.Any()
-* Skeletons.Array()
-* Skeletons.Object()
-* Skeletons.Function()
-* Skeletons.MapObject()
+* [Skeletons.Number()][number]
+* [Skeletons.String()][string]
+* [Skeletons.Boolean()][boolean]
+* [Skeletons.Null()][null]
+* [Skeletons.Any()][any]
+* [Skeletons.Array()][array]
+* [Skeletons.Object()][object]
+* [Skeletons.Function()][function]
+* [Skeletons.MapObject()][mapobject]
 
 See [Skeletons static function][static] for more options you can use.
 
@@ -279,7 +279,17 @@ for example in [Usage](#usage), warnings should look like below :
 ]
 ```
 
-For more information about warnings after validation, see [rule.warnings]()
+[Document][doc]
 
+[doc]:https://github.com/timtnleeProject/skeletons/wiki/Document
 [static]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function
-[required]:http://googe.com
+[required]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#optionsrequired
+[number]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsnumber]
+[boolean]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsboolean
+[string]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsstring
+[null]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsnull
+[array]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsarray
+[object]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsobject
+[mapobject]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsmapobject
+[any]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsany
+[function]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsfunction
