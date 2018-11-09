@@ -14,7 +14,10 @@
     "data",
     "json"
   ],
-  "github": "https://github.com/timtnleeProject/skeletons",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timtnleeProject/skeletons.git"
+  },
   "author": "timtnlee",
   "license": "MIT",
   "devDependencies": {
