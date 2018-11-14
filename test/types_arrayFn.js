@@ -22,7 +22,7 @@ describe('Skeletons.Array', function(){
   describe('not array',function(){
     skeletons.schema = Skeletons.Array()
     dataset.not([]).forEach((data)=>{
-      it(`data: ${data}`,function(){
+      it(`data: ${Skeletons.typeof(data)}`,function(){
         skeletons.validate(data)
         const warn = skeletons.warnings
         assert.strictEqual(warn.length, 1)

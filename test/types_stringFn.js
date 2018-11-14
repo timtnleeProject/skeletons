@@ -19,7 +19,7 @@ describe('Skeletons.String', function(){
   })
   describe('not String' ,function(){
     dataset.not('string').forEach(d=>{
-      it(`data: ${d}`,function(){
+      it(`data: ${Skeletons.typeof(d)}`,function(){
         skeletons.validate(d)
         assert.strictEqual(skeletons.valid, false)
         assert.strictEqual(skeletons.warnings.length, 1)

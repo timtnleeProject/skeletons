@@ -104,6 +104,9 @@ module.exports = function (Skeletons) {
   Skeletons.prototype.BooleanFn = function (opt, depth) {
     this.SOP(opt, depth, 'boolean', (val) => typeof val === 'boolean')
   }
+  Skeletons.prototype.SymbolFn = function(opt, depth) {
+    this.SOP(opt, depth, 'symbol', (val)=> typeof val === 'symbol')
+  }
   Skeletons.prototype.AnyFn = function(opt, depth) {
     this.SOP(opt, depth, 'any', ()=>true )
     if(opt.include && opt.exclude) return this.warn(depth,'Skeletons.Any({ include, exclude }): you defined both include and exclude, which can only be one of them.',99)

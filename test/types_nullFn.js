@@ -20,7 +20,7 @@ describe('Skeletons.Null', function(){
   
   describe('not Number' ,function(){
     dataset.not(null).forEach(d=>{
-      it(`data: ${d}`,function(){
+      it(`data: ${Skeletons.typeof(d)}`,function(){
         skeletons.validate(d)
         assert.strictEqual(skeletons.valid, false)
         assert.strictEqual(skeletons.warnings.length, 1)

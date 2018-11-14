@@ -21,7 +21,7 @@ describe('Skeletons.Object', function(){
   describe('not Object' ,function(){
     let skeletons = new Skeletons(Skeletons.Object(), { console: false })
     dataset.not({}).forEach(d=>{
-      it(`data: ${d}`,function(){
+      it(`data: ${Skeletons.typeof(d)}`,function(){
         skeletons.validate(d)
         assert.strictEqual(skeletons.valid, false)
         assert.strictEqual(skeletons.warnings.length, 1)

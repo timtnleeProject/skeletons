@@ -9,7 +9,8 @@ const types = [
   'Null',
   'Any',
   'MapObject',
-  'Function'
+  'Function',
+  'Symbol',
 ]
 const dataset = [
   '0',
@@ -21,8 +22,8 @@ const dataset = [
   'any type',
   {},
   function(){},
+  Symbol(),
   undefined
-
 ]
 types.not = function(val){
   const clone = [...this].filter(c=>c!=val)
@@ -61,7 +62,8 @@ describe('Test data',function(){
       'Null',
       'Any',
       'MapObject',
-      'Function'
+      'Function',
+      'Symbol'
     ]
     testing.types.not('String').forEach((t,i)=>{
       assert.strictEqual(t,expect[i])
@@ -75,7 +77,8 @@ describe('Test data',function(){
       'Null',
       'Any',
       'MapObject',
-      'Function'
+      'Function',
+      'Symbol'
     ]
     testing.types.not('String').not('Boolean').forEach((t,i)=>{
       assert.strictEqual(t,expect[i])
@@ -94,10 +97,11 @@ describe('Test data',function(){
       null,
       'any type',
       {},
+      Symbol(),
       undefined
     ]
     testing.dataset.not(function(){}).forEach((t,i)=>{
-      assert.deepEqual(t, expect[i])
+      assert.deepEqual(Skeletons.typeof(t), Skeletons.typeof(expect[i]))
     })
   })
   it('dataset.not().not()',function(){
@@ -108,10 +112,11 @@ describe('Test data',function(){
       0,
       null,
       {},
+      Symbol(),
       undefined
     ]
     testing.dataset.not(function(){}).not('str').forEach((t,i)=>{
-      assert.deepEqual(t, expect[i])
+      assert.deepEqual(Skeletons.typeof(t), Skeletons.typeof(expect[i]))
     })
   })
 })

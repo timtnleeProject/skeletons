@@ -36,6 +36,10 @@ describe('Skeletons static',function(){
       {
         data: function(){},
         expect: 'function'
+      },
+      {
+        data: Symbol(),
+        expect: 'symbol'
       }
     ]
     for(let type of types){

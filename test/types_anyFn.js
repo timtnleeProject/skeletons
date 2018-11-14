@@ -19,7 +19,7 @@ describe('Skeletons.Any', function(){
   })
   it('any value is allowed, including undefined' ,function(){
     dataset.forEach(d=>{
-      it(`data: ${d}`,function(){
+      it(`data: ${Skeletons.typeof(d)}`,function(){
         skeletons.validate(d)
         assert.strictEqual(skeletons.valid, true)
         assert.strictEqual(skeletons.warnings.length, 0)

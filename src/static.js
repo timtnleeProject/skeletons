@@ -25,7 +25,7 @@ function staticFactory(Skeletons) {
   Skeletons.Object = function(opt){
     const extend_opt = {
       class: null,
-      object: null
+      object: {}
     }
     return new Skeletons.Types(opt, 'ObjectFn', extend_opt)
   }
@@ -40,6 +40,10 @@ function staticFactory(Skeletons) {
     const extend_opt = {
     }
     return new Skeletons.Types(opt, 'FunctionFn', extend_opt)
+  }
+  Skeletons.Symbol = function(opt) {
+    const extend_opt = {}
+    return new Skeletons.Types(opt, 'SymbolFn', extend_opt)
   }
   Skeletons.Null = function(opt) {
     return new Skeletons.Types(opt, 'NullFn', {})

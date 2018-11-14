@@ -72,6 +72,12 @@ rule.validate(data)
 rule.valid //false
 ```
 
+## Version
+
+* **0.0.3**
+  * add [`Skeletons.Symbol`][symbol] schema define function
+  * `Skeletons.Object({ object })` object default set to `{}`
+
 ## Installation
 
 ### nodejs
@@ -198,6 +204,7 @@ To allow dynamic keys in object, use [MapObject][mapobject].
 * [Skeletons.Object()][object]
 * [Skeletons.Function()][function]
 * [Skeletons.MapObject()][mapobject]
+* [Skeletons.Symbol()][symbol]
 
 See [Skeletons static function][static] for more options you can use.
 
@@ -284,7 +291,7 @@ for example in [Usage](#usage), warnings should look like below :
 [doc]:https://github.com/timtnleeProject/skeletons/wiki/Document
 [static]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function
 [required]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#optionsrequired
-[number]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsnumber]
+[number]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsnumber
 [boolean]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsboolean
 [string]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsstring
 [null]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsnull
@@ -293,3 +300,4 @@ for example in [Usage](#usage), warnings should look like below :
 [mapobject]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsmapobject
 [any]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsany
 [function]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsfunction
+[symbol]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonssymbol

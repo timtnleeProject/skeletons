@@ -20,7 +20,7 @@ describe('Skeletons.Function', function(){
   
   describe('not Function' ,function(){
     dataset.not(function(){}).forEach(d=>{
-      it(`data: ${d}`,function(){
+      it(`data: ${Skeletons.typeof(d)}`,function(){
         skeletons.validate(d)
         assert.strictEqual(skeletons.valid, false)
         assert.strictEqual(skeletons.warnings.length, 1)
