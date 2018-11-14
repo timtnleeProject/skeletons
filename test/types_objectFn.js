@@ -12,7 +12,7 @@ describe('Skeletons.Object', function(){
       required: true,
       default: undefined,
       class: null,
-      object: null
+      object: {}
     }
     it('valid' ,function(){
       assert.deepEqual(skeletons.schema.opt,expect)

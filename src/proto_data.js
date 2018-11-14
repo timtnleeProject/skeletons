@@ -38,7 +38,8 @@ module.exports = function (Skeletons) {
     }
   }
   Skeletons.prototype.ObjectFn = function(opt, depth){
-    this.SOP(opt, depth, 'object', (val)=> Skeletons.typeof(val)==='object')
+    const status = this.SOP(opt, depth, 'object', (val)=> Skeletons.typeof(val)==='object')
+    if (status != 200) return
     const { data_deep } = this.getDepth(depth)
     if(opt.class) {
       if(typeof opt.class !== 'function')  return this.warn(depth,'class is not a function',99)
@@ -62,7 +63,8 @@ module.exports = function (Skeletons) {
     }
   }
   Skeletons.prototype.MapObjectFn = function(opt, depth) {
-    this.SOP(opt, depth, 'object', (val)=> Skeletons.typeof(val)==='object')
+    const status = this.SOP(opt, depth, 'object', (val)=> Skeletons.typeof(val)==='object')
+    if (status != 200) return
     const { data_deep } = this.getDepth(depth)
     if(opt.keyValidator) {
       if(typeof opt.keyValidator!=='function') return this.warn(depth, 'Skeletons.MapObject({ keyValidator }) keyValidator must be function',99)
@@ -97,7 +99,8 @@ module.exports = function (Skeletons) {
     this.SOP(opt, depth, 'string', (val) => typeof val === 'string')
   }
   Skeletons.prototype.NumberFn = function(opt, depth){
-    this.SOP(opt, depth, 'number', (val) => typeof val === 'number')
+    const status = this.SOP(opt, depth, 'number', (val) => typeof val === 'number')
+    if (status != 200) return
     const { data_deep } = this.getDepth(depth)
     if(opt.allowNaN===false&& isNaN(data_deep)) this.warn(depth,'Skeletons.Number({ allowNaN:false }), NaN value not allowed',0)
   }

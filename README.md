@@ -74,9 +74,12 @@ rule.valid //false
 
 ## Version
 
+* **0.0.4**
+  * fixed test script/build script.
+  * fixed unnecessary validation and warnings.
 * **0.0.3**
-  * add [`Skeletons.Symbol`][symbol] schema define function
-  * `Skeletons.Object({ object })` object default set to `{}`
+  * add [`Skeletons.Symbol`][symbol] schema define function.
+  * `Skeletons.Object({ object })` object default set to `{}`.
 
 ## Installation
 
