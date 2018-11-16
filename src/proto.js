@@ -72,9 +72,6 @@ function protoFatory(Skeletons) {
     case 0:
       type = '[Unexpected Type]'
       break
-    case 1:
-      type = '[Not Object]'
-      break
     case 2:
       type = '[Value invalid]'
       break
@@ -114,7 +111,8 @@ function protoFatory(Skeletons) {
     warnings.forEach(warn=>{
       const origin_name = this.schema_name
       this.schemaName = schemaName
-      let concat_depth = (warn.code>10)?warn.depth:[...originDepth, ...warn.depth]
+      let concat_depth = (warn.code>10)?[]:[...originDepth, ...warn.depth]
+      if(warn.code>10) this.isbranch = false// schema錯誤: 直接用throw
       this.warn(concat_depth,warn.log,warn.code)
       this.schemaName = origin_name
     })

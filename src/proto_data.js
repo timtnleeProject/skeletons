@@ -32,7 +32,7 @@ module.exports = function (Skeletons) {
         if(!item_schema.valid) this.useOriginWarn({
           warnings: item_schema.warnings,
           originDepth: [...depth,i],
-          schemaName: this.schemaName + Skeletons.getKeyStr(depth) + ', Skeletons.Array({ item }) item'
+          schemaName: this.schemaName + ', Skeletons.Array({ item }) item'
         })
       })
     }
@@ -57,7 +57,7 @@ module.exports = function (Skeletons) {
         this.useOriginWarn({
           warnings: schema.warnings,
           originDepth: depth,
-          schemaName: this.schemaName + Skeletons.getKeyStr(depth)
+          schemaName: this.schemaName + 'Skeletons.Object({ object })'
         })
       }
     }
@@ -83,7 +83,7 @@ module.exports = function (Skeletons) {
           this.useOriginWarn({
             warnings: schema.warnings,
             originDepth: [...depth,k],
-            schemaName: this.schemaName + Skeletons.getKeyStr(depth) + ', Skeletons.MapObject({ item })'
+            schemaName: this.schemaName + ', Skeletons.MapObject({ item })'
           })
         }
       }

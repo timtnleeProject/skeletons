@@ -74,6 +74,10 @@ rule.valid //false
 
 ## Version
 
+* **0.0.5**
+  * remove unused warning type.
+  * fixed schema warnings.
+  * add [warnings][warn] wiki.
 * **0.0.4**
   * fixed test script/build script.
   * fixed unnecessary validation and warnings.
@@ -289,7 +293,7 @@ for example in [Usage](#usage), warnings should look like below :
 ]
 ```
 
-[Document][doc]
+more about [warnings][warn] and [Document][doc].
 
 [doc]:https://github.com/timtnleeProject/skeletons/wiki/Document
 [static]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function
@@ -304,3 +308,4 @@ for example in [Usage](#usage), warnings should look like below :
 [any]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsany
 [function]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsfunction
 [symbol]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonssymbol
+[warn]:https://github.com/timtnleeProject/skeletons/wiki/Warnings
