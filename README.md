@@ -139,6 +139,18 @@ However Skeletons will distinguish array from object.
 
 To define an array schema, use Skeletons.Array()
 
+### function
+
+```js
+typeof function(){} // 'function'
+```
+
+Although typeof function return `'function'`, it is worth mentioning that function is also a **Function Object**, however Skeletons will distinguish function from object.
+
+So you cannot define an 'object' schema but got 'function' at data.
+
+To define an function schema, use Skeletons.Function()
+
 ### undefined
 
 For every undefined value, validation will fail.
