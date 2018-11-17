@@ -14,7 +14,7 @@ You might bother with data validation.
 if(typeof data!=='object'||data===null) throw 'options must be an object'
 if(!data.name) throw '...'
 if(!data.id) throw '...'
-if(typeof data.age && !isNaN(data.age)) { /* ... */ }
+if(typeof data.age === 'number' && !isNaN(data.age)) { /* ... */ }
 //....
 ```
 
