@@ -10,6 +10,8 @@
 
 You might bother with data validation.
 
+(notice: there were some mistkes in Readme examples and were fixed until version 0.0.6)
+
 ```javascript
 if(typeof data!=='object'||data===null) throw 'options must be an object'
 if(!data.name) throw '...'
@@ -40,7 +42,7 @@ const user_schema = {
     allowNaN: false
   }),
   grownup: Skeletons.Boolean({
-    validator: (_val, source) => source.age>=18
+    validator: (val, source) => val === (source.age>=18)
   })
 }
 //data
@@ -74,6 +76,8 @@ rule.valid //false
 
 ## Version
 
+* **0.0.6**
+  * *Fixed some mistakes in Readme.md examples.
 * **0.0.5**
   * remove unused warning type.
   * fixed schema warnings.
@@ -155,7 +159,7 @@ To define an function schema, use Skeletons.Function()
 
 For every undefined value, validation will fail.
 
-To allow undefined, see [options.required][required].
+To allow `undefined` value, see [options.required][required].
 
 ## Define Schema
 
@@ -166,6 +170,7 @@ There are three types of schema
 * String : define a string
 * Number : define a number
 * Boolean : define a boolean
+* Symbol : define a symbol
 
 Only **premitive types** function, **do not use** other functions like *Object*, *Array*.
 
@@ -269,6 +274,8 @@ rule.validate(1 ,{
 If data isn't valid, skeletons will show warning message in console or throw error depends on your setting.
 
 However if there's a schema problem (defined a wrong schema), skeletons will always throw error.
+
+**notice** : Skeletons will discover schema erorrs only when `rule.validate()` called.
 
 ### rule.valid
 
