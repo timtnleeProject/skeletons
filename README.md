@@ -120,14 +120,15 @@ unpkg cdn : `https://unpkg.com/skeletons@:version/dist/skeletons.min.js`
 
 ### null
 
-In javascript, `null` is an object.
+In javascript, `null` is a primitive type, however typeof null is
 
 ```javascript
 typeof null // 'object'
 ```
 
-However in Skeletons, `null` will not be treated as an object type.
-So when define schema to be object but got `null`, validation will fail.
+Skeletons use [Skeletons.typeof][typeof] instead of `typeof` to check types.
+
+When define schema to be object but got `null`, validation will fail.
 
 To define a `null` value schema, use Skeletons.Null()
 
@@ -328,3 +329,4 @@ more about [warnings][warn] and [Document][doc].
 [function]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsfunction
 [symbol]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonssymbol
 [warn]:https://github.com/timtnleeProject/skeletons/wiki/Warnings
+[typeof]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonstypeofdata
