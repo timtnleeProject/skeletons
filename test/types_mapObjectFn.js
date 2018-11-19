@@ -33,7 +33,7 @@ describe('Skeletons.MapObject', function(){
   describe('item', function(){
     let rule = new Skeletons(Skeletons.MapObject({
       item: String
-    }))
+    }), { console: false })
     rule.validate({
       anykeys: 1
     })

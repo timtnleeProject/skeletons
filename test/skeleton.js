@@ -23,17 +23,27 @@ describe('Skeletons', function(){
     })
   })
   describe('default options', function(){
+    const default_rule = {
+      extraKey: false
+    }
     const options = {
       console: false,
       throw: true,
       dataName: 'data123',
-      schmaName: 'schema123',
+      schemaName: 'schema123',
     }
     const skeletons = new Skeletons({}, options)
     it('default options setup', function(){
       for(let k in options) {
         assert.strictEqual(options[k], skeletons.default[k])
       }
+    })
+    it('this.rule default', function(){
+      assert.deepEqual(skeletons.default.rule, default_rule)
+    })
+    it('this.rule setup' ,function(){
+      let sk = new Skeletons({}, { rule: {extraKey: true} })
+      assert.deepEqual(sk.default.rule, {extraKey: true})
     })
     it('Skeletons.prototype.validate use default options' ,function(){
       skeletons.validate({})
@@ -46,7 +56,7 @@ describe('Skeletons', function(){
         console: true,
         throw: false,
         dataName: 'myData',
-        schmaName: 'mySchema'
+        schemaName: 'mySchema'
       }
       skeletons.validate({}, new_options)
       for(let k in new_options) {

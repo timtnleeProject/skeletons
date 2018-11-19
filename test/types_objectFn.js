@@ -12,7 +12,8 @@ describe('Skeletons.Object', function(){
       required: true,
       default: undefined,
       class: null,
-      object: {}
+      object: {},
+      extraKey: false
     }
     it('valid' ,function(){
       assert.deepEqual(skeletons.schema.opt,expect)
@@ -58,7 +59,7 @@ describe('Skeletons.Object', function(){
         x: Number
       }
     })
-    skeletons.validate({}, {console:true})
+    skeletons.validate({})
     it('valid' ,function(){
       assert.strictEqual(skeletons.valid, false)
       assert.strictEqual(skeletons.warnings.length, 1)

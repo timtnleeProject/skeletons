@@ -48,7 +48,7 @@ module.exports = function (Skeletons) {
     if(opt.object) {
       if(Skeletons.typeof(opt.object)!=='object') return this.warn(depth,'Skeletons.Object({ object }) object must be an object {}',99)
       if(opt.object instanceof Skeletons.Types&&opt.object.fname!='ObjectFn') return this.warn(depth,'Skeletons.Object({ object }) object must be an object {} or Skeletons.Object()',99)
-      const schema = new Skeletons(opt.object)
+      const schema = new Skeletons(opt.object, { rule: { extraKey: opt.extraKey } })
       schema.validate(data_deep, {
         isbranch: true,
         root:this

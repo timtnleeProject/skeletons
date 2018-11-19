@@ -22,7 +22,7 @@ describe('Test cases', function(){
       assert.deepEqual(warn[0].depth, ['b'])
       assert.strictEqual(warn[0].code, 0)
     })
-    it('[Not Object]', function(){
+    it('[Unexpected Type]', function(){
       let skeletons = new Skeletons(schema)
       dataset.not({}).forEach(data=>{
         skeletons.validate(data, { console: false })
@@ -54,6 +54,40 @@ describe('Test cases', function(){
       assert.strictEqual(warn.length,1)
       assert.deepEqual(warn[0].depth, [])  
       assert.strictEqual(warn[0].code, 5)
+    })
+    it('allow [Unknown Property]' ,function(){
+      let data = {
+        a: 2,
+        b: 'str',
+        c: 4
+      }
+      let skeletons = new Skeletons(Skeletons.Object({
+        extraKey: true,
+        object: {
+          a: Number,
+          b: String,
+        }
+      }))
+      skeletons.validate(data, { console: false })
+      assert.strictEqual(skeletons.valid, true)
+    })
+    it('allow [Unknown Property], check exist key' ,function(){
+      let data = {
+        a: '',
+        b: 'str',
+        c: 4
+      }
+      let skeletons = new Skeletons(Skeletons.Object({
+        extraKey: true,
+        object: {
+          a: Number,
+          b: String,
+        }
+      }))
+      skeletons.validate(data, { console: false })
+      assert.strictEqual(skeletons.valid, false)
+      assert.strictEqual(skeletons.warnings.length,1)
+      assert.deepEqual(skeletons.warnings[0].depth,['a'])
     })
     it('[keyValidator failed]' ,function(){
       let skeletons = new Skeletons(Skeletons.MapObject({

@@ -1,8 +1,11 @@
 const assert = require('assert')
 
 const Skeletons = require('../index')
-
+const dist = require('../dist/skeletons.test.js')
 describe('Skeletons static',function(){
+  it('build script' ,function(){
+    assert.strictEqual(dist._version_, Skeletons._version_)
+  })
   it('Skeletons.typeof' ,function(){
     const types = [
       {

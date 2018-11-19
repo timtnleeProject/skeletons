@@ -1,5 +1,5 @@
 .travis.yml
-webpack.config.js
+build
 build.js
 .eslintrc.js
 test

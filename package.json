@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "build": "webpack"
+    "build": "webpack --config build/webpack.config.js && webpack --config build/test.config.js"
   },
   "keywords": [
     "skeletons",

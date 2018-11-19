@@ -76,6 +76,8 @@ rule.valid //false
 
 ## Version
 
+* **0.0.7**
+  * [Skeletons.Object][object] has new option `options.extraKey`
 * **0.0.6**
   * *Fixed some mistakes in Readme.md examples.
 * **0.0.5**
@@ -217,6 +219,8 @@ rule.validate({
 To allow a undefined property, see [options.required][required].
 
 To allow dynamic keys in object, use [MapObject][mapobject].
+
+To check keys that are defined and also ignore keys that are not defined, see [Skeletons.Object][object] : set `options.extraKey` to `true`.
 
 ### call Skeletons static function
 

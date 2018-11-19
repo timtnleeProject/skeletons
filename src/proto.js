@@ -15,6 +15,7 @@ function protoFatory(Skeletons) {
     this.lookup([])
     return this
   }
+
   Skeletons.prototype.lookup = function (depth) {
     depth = depth || []
     let { schema_deep, data_deep } = this.getDepth(depth)
@@ -49,10 +50,12 @@ function protoFatory(Skeletons) {
       delete data_keys[k]
       this.lookup([...depth, k])
     }
+    if(this.rule.extraKey) return
     for(let k in data_keys) {
       this.warn(depth,`property '${k}' not defined in schema`,5)
     }
   }
+
   Skeletons.prototype.getDepth = function (depth) {
     let schema_deep = this.schema,
       data_deep = this.data
@@ -62,6 +65,7 @@ function protoFatory(Skeletons) {
     })
     return { schema_deep, data_deep}
   }
+
   Skeletons.prototype.warn = function (depth, log, code) {
     if (this.valid === true)
       this.valid = false
@@ -106,6 +110,7 @@ function protoFatory(Skeletons) {
     
     if(this.console) return console.log(output)
   }
+
   Skeletons.prototype.useOriginWarn = function({ warnings,originDepth,schemaName}) { 
     //useOriginWarn的schemaName需要自己組，因為schema結構和Data不同 (會用Skeletons static function)
     warnings.forEach(warn=>{
