@@ -175,7 +175,7 @@ describe('Test cases', function(){
       }),
       age: Number,
       grownup: Skeletons.Boolean({
-        validator: (_val, data) => data.age>=18
+        validator: (val, data) => val===(data.age>=18)
       })
     }, { console: false })
     skeletons.validate({

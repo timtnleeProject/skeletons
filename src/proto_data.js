@@ -25,10 +25,7 @@ module.exports = function (Skeletons) {
       const { data_deep } = this.getDepth(depth)
       const item_schema = new Skeletons(opt.item) 
       data_deep.forEach((d,i) => {
-        item_schema.validate(d, {
-          isbranch: true,
-          root:this
-        })
+        item_schema.subValidate(d,this)
         if(!item_schema.valid) this.useOriginWarn({
           warnings: item_schema.warnings,
           originDepth: [...depth,i],
@@ -49,10 +46,7 @@ module.exports = function (Skeletons) {
       if(Skeletons.typeof(opt.object)!=='object') return this.warn(depth,'Skeletons.Object({ object }) object must be an object {}',99)
       if(opt.object instanceof Skeletons.Types&&opt.object.fname!='ObjectFn') return this.warn(depth,'Skeletons.Object({ object }) object must be an object {} or Skeletons.Object()',99)
       const schema = new Skeletons(opt.object, { rule: { extraKey: opt.extraKey } })
-      schema.validate(data_deep, {
-        isbranch: true,
-        root:this
-      })
+      schema.subValidate(data_deep, this)
       if(!schema.valid) {
         this.useOriginWarn({
           warnings: schema.warnings,
@@ -75,10 +69,7 @@ module.exports = function (Skeletons) {
     if(opt.item) {
       const schema = new Skeletons(opt.item)
       for(let k in data_deep) {
-        schema.validate(data_deep[k],{
-          isbranch: true,
-          root: this
-        })
+        schema.subValidate(data_deep[k],this)
         if(!schema.valid) {
           this.useOriginWarn({
             warnings: schema.warnings,
@@ -120,10 +111,7 @@ module.exports = function (Skeletons) {
       for(let i=0;i<opt.include.length;i++){
         let schema =opt.include[i]
         let check = new Skeletons(schema)
-        check.validate(data_deep, {
-          isbranch: true,
-          root:this
-        })
+        check.subValidate(data_deep, this)
         if(check.valid) { 
           valid = true
           break
@@ -138,10 +126,7 @@ module.exports = function (Skeletons) {
       for(let i=0;i<opt.exclude.length;i++){
         let schema =opt.exclude[i]
         let check = new Skeletons(schema)
-        check.validate(data_deep, {
-          isbranch: true,
-          root:this
-        })
+        check.subValidate(data_deep, this)
         if(check.valid) { 
           valid = false
           break

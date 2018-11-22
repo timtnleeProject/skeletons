@@ -16,6 +16,13 @@ function protoFatory(Skeletons) {
     return this
   }
 
+  Skeletons.prototype.subValidate = function(data,target) {
+    return this.validate(data, {
+      isbranch: true,
+      root: target
+    })
+  }
+
   Skeletons.prototype.lookup = function (depth) {
     depth = depth || []
     let { schema_deep, data_deep } = this.getDepth(depth)

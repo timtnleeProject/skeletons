@@ -10,7 +10,7 @@
 
 You might bother with data validation.
 
-(notice: there were some mistkes in Readme examples and were fixed until version 0.0.6)
+(notice: there were some mistkes in Readme examples and were fixed at version 0.0.6)
 
 ```javascript
 if(typeof data!=='object'||data===null) throw 'options must be an object'
