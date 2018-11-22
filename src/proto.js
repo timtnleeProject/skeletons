@@ -1,13 +1,14 @@
 function protoFatory(Skeletons) {
-  Skeletons.prototype.validate = function(data, opt) {
+  Skeletons.prototype.validate = function(data, opt={}) {
     const default_opt = Object.assign({
-      root: this,
-      isbranch: false, //驗證nested的資料，不throw也不console
+      root: this, //內部使用
+      isbranch: false, //內部使用 驗證nested的資料，不throw也不console
     },this.default)
+    
     opt = Skeletons.setDefault(opt, default_opt)
-    for(let k in opt) {
-      this[k] = opt[k]
-    }
+    
+    Object.assign(this,opt)
+    
     //init setup
     this.data = data
     this.valid = true
@@ -23,8 +24,7 @@ function protoFatory(Skeletons) {
     })
   }
 
-  Skeletons.prototype.lookup = function (depth) {
-    depth = depth || []
+  Skeletons.prototype.lookup = function (depth=[]) {
     let { schema_deep, data_deep } = this.getDepth(depth)
     //optional的schema?
     if (schema_deep instanceof Skeletons.Types) {
@@ -42,12 +42,12 @@ function protoFatory(Skeletons) {
       }
       return
     }
-    //object schema?
+    //object iteral schema?
     if(Skeletons.typeof(schema_deep)!=='object') {
       this.warn(depth,'is not a valid schema and will be ignored, please fixed it.',99) 
       return
     }
-    //是object schema, 驗證資料
+    //是object iteral schema, 驗證資料
     const data_type = Skeletons.typeof(data_deep)
     if (data_type!='object') {
       return this.warn(depth, `expect object, got ${data_type}`, 1)
@@ -57,6 +57,7 @@ function protoFatory(Skeletons) {
       delete data_keys[k]
       this.lookup([...depth, k])
     }
+    // undefined keys?
     if(this.rule.extraKey) return
     for(let k in data_keys) {
       this.warn(depth,`property '${k}' not defined in schema`,5)
@@ -74,8 +75,7 @@ function protoFatory(Skeletons) {
   }
 
   Skeletons.prototype.warn = function (depth, log, code) {
-    if (this.valid === true)
-      this.valid = false
+    if (this.valid === true) this.valid = false
     let type = ''
     let source = (code>=10)? this.schemaName:this.dataName
     //code >= 10 is schema error

@@ -64,7 +64,7 @@ function staticFactory(Skeletons) {
     return new Skeletons.Types(opt, 'AnyFn', extend_opt)
   }
 
-  Skeletons.Types = function(opt,fname, more_opt){
+  Skeletons.Types = function(opt={},fname, more_opt){
     const glob_opt = {
       required: true,
       default: undefined,
@@ -104,7 +104,7 @@ function staticFactory(Skeletons) {
   }
 
   Skeletons.setDefault = function(opt, default_opt) {
-    if(!opt) opt = default_opt
+    if(!opt) return default_opt
     if(Skeletons.typeof(opt)!=='object') throw 'Skeletons.setDefault(data, options), options must be object'
     
     //options

@@ -1,22 +1,18 @@
 module.exports = function (Skeletons) {
   Skeletons.prototype.SOP = function (opt, depth, name, filter) {
     let { data_deep } = this.getDepth(depth)
-    if (opt.required === false && data_deep === undefined) {
-      return
-    }
-    if(opt.default!==undefined) {
-      if(data_deep === opt.default) return
-    }
-    if (!filter(data_deep)) {
+    if (opt.required === false && data_deep === undefined) return //undefined, but not required
+    if(opt.default!==undefined && data_deep === opt.default) return // strictEqual to default value
+    if (!filter(data_deep)) { // wrong type
       const data_type = Skeletons.typeof(data_deep)
       this.warn(depth, `expect [${name}] but got [${data_type}]`, 0)
       return 
     }
     if (opt.validator) {
-      if (typeof opt.validator !== 'function') return this.warn(depth, 'validator must be a function', 99)
+      if (typeof opt.validator !== 'function') return this.warn(depth, 'options.validator must be a function', 99)
       if (opt.validator(data_deep, this.root.data) !== true) return this.warn(depth, 'validation failed', 2)
     }
-    return 200
+    return 200 //keep check extra options
   }
   Skeletons.prototype.ArrayFn = function (opt, depth) {
     const status = this.SOP(opt, depth, 'array', (val) => Array.isArray(val))
@@ -29,7 +25,7 @@ module.exports = function (Skeletons) {
         if(!item_schema.valid) this.useOriginWarn({
           warnings: item_schema.warnings,
           originDepth: [...depth,i],
-          schemaName: this.schemaName + ', Skeletons.Array({ item }) item'
+          schemaName: this.schemaName + 'Skeletons.Array({ item }) options.item'
         })
       })
     }
@@ -39,19 +35,19 @@ module.exports = function (Skeletons) {
     if (status != 200) return
     const { data_deep } = this.getDepth(depth)
     if(opt.class) {
-      if(typeof opt.class !== 'function')  return this.warn(depth,'class is not a function',99)
-      if(!(data_deep instanceof opt.class)) this.warn(depth,`object expect instanceof [${opt.class.name}] but got [${Object.getPrototypeOf(data_deep).constructor.name}]`,8)
+      if(typeof opt.class !== 'function')  return this.warn(depth,'Skeletons.Object({ class }) options.class is not a function/class',99)
+      if(!(data_deep instanceof opt.class)) this.warn(depth,`object expect instanceof [${opt.class.name}] but got instanceof [${Object.getPrototypeOf(data_deep).constructor.name}]`,8)
     }
     if(opt.object) {
-      if(Skeletons.typeof(opt.object)!=='object') return this.warn(depth,'Skeletons.Object({ object }) object must be an object {}',99)
-      if(opt.object instanceof Skeletons.Types&&opt.object.fname!='ObjectFn') return this.warn(depth,'Skeletons.Object({ object }) object must be an object {} or Skeletons.Object()',99)
+      if(Skeletons.typeof(opt.object)!=='object') return this.warn(depth,'Skeletons.Object({ object }) options.object must be an object {}',99)
+      if(opt.object instanceof Skeletons.Types) return this.warn(depth,'Skeletons.Object({ object }) options.object can only use iteral object schema {}',99)
       const schema = new Skeletons(opt.object, { rule: { extraKey: opt.extraKey } })
       schema.subValidate(data_deep, this)
       if(!schema.valid) {
         this.useOriginWarn({
           warnings: schema.warnings,
           originDepth: depth,
-          schemaName: this.schemaName + 'Skeletons.Object({ object })'
+          schemaName: this.schemaName + 'Skeletons.Object({ object }) options.object'
         })
       }
     }
@@ -61,7 +57,7 @@ module.exports = function (Skeletons) {
     if (status != 200) return
     const { data_deep } = this.getDepth(depth)
     if(opt.keyValidator) {
-      if(typeof opt.keyValidator!=='function') return this.warn(depth, 'Skeletons.MapObject({ keyValidator }) keyValidator must be function',99)
+      if(typeof opt.keyValidator!=='function') return this.warn(depth, 'Skeletons.MapObject({ keyValidator }) options.keyValidator must be function',99)
       for(let k in data_deep) {
         if(opt.keyValidator(k, this.root.data)!==true) this.warn(depth,`keyValidator failed at key ${k}`,6)
       }
@@ -74,7 +70,7 @@ module.exports = function (Skeletons) {
           this.useOriginWarn({
             warnings: schema.warnings,
             originDepth: [...depth,k],
-            schemaName: this.schemaName + ', Skeletons.MapObject({ item })'
+            schemaName: this.schemaName + 'Skeletons.MapObject({ item }) options.item'
           })
         }
       }
