@@ -121,8 +121,8 @@ function protoFatory(Skeletons) {
   Skeletons.prototype.useOriginWarn = function({ warnings,originDepth,schemaName}) { 
     //useOriginWarn的schemaName需要自己組，因為schema結構和Data不同 (會用Skeletons static function)
     warnings.forEach(warn=>{
-      const origin_name = this.schema_name
-      this.schemaName = schemaName
+      const origin_name = this.schemaName
+      this.schemaName = `${origin_name}: ${schemaName}`
       let concat_depth = (warn.code>10)?[]:[...originDepth, ...warn.depth]
       if(warn.code>10) this.isbranch = false// schema錯誤: 直接用throw
       this.warn(concat_depth,warn.log,warn.code)
