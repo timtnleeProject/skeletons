@@ -1,6 +1,7 @@
 const assert = require('assert')
 
 const Skeletons = require('../index')
+const { dataset } = require('./testdata')
 
 describe('Skeletons.prototype',function(){
   describe('Skeletons.prototype.validate' ,function(){
@@ -35,26 +36,62 @@ describe('Skeletons.prototype',function(){
       }
     })
     it('invalid schema' ,function(){
-      let skeletons = new Skeletons({
-        a: 1
+      dataset.not({}).not(function(){}).forEach(d=>{
+        let skeletons = new Skeletons({
+          a: d
+        })
+        try {
+          skeletons.validate({a:1}, {console: false})
+        } catch (error) {
+          let warn = skeletons.warnings
+          assert.strictEqual(skeletons.valid, false)
+          assert.strictEqual(warn.length, 1)
+          assert.strictEqual(warn[0].code,99)
+          assert.deepEqual(warn[0].depth,['a'])
+        }
       })
-      try {
-        skeletons.validate({a:1}, {console: false})
-      } catch (error) {
-        let warn = skeletons.warnings
-        assert.strictEqual(skeletons.valid, false)
-        assert.strictEqual(warn.length, 1)
-        assert.strictEqual(warn[0].code,99)
-        assert.deepEqual(warn[0].depth,['a'])
-      }
     })
     it('return rule' ,function(){
       let rule = new Skeletons({})
       let rule2 = rule.validate({})
       assert.strictEqual(rule, rule2)
     })
-  })    
-  describe('validate => lookup execute count' ,function(){
+  })  
+  describe('Array iteral schema', function(){
+    it('check array' ,function(){
+      const rule = new Skeletons([]).validate([])
+      assert.strictEqual(rule.valid, true)
+    })  
+    it('not array', function(){
+      const rule = new Skeletons([])
+      dataset.not([]).forEach(d=>{
+        rule.validate(d)
+        assert.strictEqual(rule.valid, false)
+        assert.strictEqual(rule.warnings.length,1)
+        assert.strictEqual(rule.warnings[0].code,0)
+      })
+    })
+    it('array element number' ,function(){
+      let num=0
+      const {schema, data} = (function(){
+        let schema = []
+        let data = []
+        num = Math.floor(Math.random()*5)+1
+        for(let i=0;i<num;i++){
+          schema.push(Number)
+          data.push(1)
+        }
+        return {schema, data} 
+      }())
+      const rule = new Skeletons(schema)
+      rule.validate([])
+      assert.strictEqual(rule.valid,false)
+      assert.strictEqual(rule.warnings.length,num)
+      rule.validate(data)
+      assert.strictEqual(rule.valid, true)
+    })
+  })
+  describe('Object literal validate => lookup execute count' ,function(){
     //isbranch的 lookup 無法套用 因此Skeletons.Array等另外測
     let count = 0
     //constructor
@@ -99,8 +136,7 @@ describe('Skeletons.prototype',function(){
         }
       }
       skeletons.validate({
-        b: {
-        }
+        b: {}
       })
       assert.strictEqual(count, 4)
     })

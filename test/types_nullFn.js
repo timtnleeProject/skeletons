@@ -18,7 +18,7 @@ describe('Skeletons.Null', function(){
     })
   })
   
-  describe('not Number' ,function(){
+  describe('not Null' ,function(){
     dataset.not(null).forEach(d=>{
       it(`data: ${Skeletons.typeof(d)}`,function(){
         skeletons.validate(d)
