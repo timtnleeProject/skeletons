@@ -42,12 +42,12 @@ function protoFatory(Skeletons) {
       }
       return
     }
-    //object iteral schema?
+    //object literal schema?
     if(Skeletons.typeof(schema_deep)!=='object') {
       this.warn(depth,'is not a valid schema and will be ignored, please fixed it.',99) 
       return
     }
-    //是object iteral schema, 驗證資料
+    //是object literal schema, 驗證資料
     const data_type = Skeletons.typeof(data_deep)
     if (data_type!='object') {
       return this.warn(depth, `expect object, got ${data_type}`, 1)

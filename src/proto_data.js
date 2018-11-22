@@ -40,7 +40,7 @@ module.exports = function (Skeletons) {
     }
     if(opt.object) {
       if(Skeletons.typeof(opt.object)!=='object') return this.warn(depth,'Skeletons.Object({ object }) options.object must be an object {}',99)
-      if(opt.object instanceof Skeletons.Types) return this.warn(depth,'Skeletons.Object({ object }) options.object can only use iteral object schema {}',99)
+      if(opt.object instanceof Skeletons.Types) return this.warn(depth,'Skeletons.Object({ object }) options.object can only use literal object schema {}',99)
       const schema = new Skeletons(opt.object, { rule: { extraKey: opt.extraKey } })
       schema.subValidate(data_deep, this)
       if(!schema.valid) {
