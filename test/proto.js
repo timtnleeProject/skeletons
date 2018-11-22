@@ -59,11 +59,11 @@ describe('Skeletons.prototype',function(){
   })  
   describe('Array iteral schema', function(){
     it('check array' ,function(){
-      const rule = new Skeletons([]).validate([])
+      const rule = new Skeletons([],{ console: false }).validate([])
       assert.strictEqual(rule.valid, true)
     })  
     it('not array', function(){
-      const rule = new Skeletons([])
+      const rule = new Skeletons([],{ console: false })
       dataset.not([]).forEach(d=>{
         rule.validate(d)
         assert.strictEqual(rule.valid, false)
@@ -83,11 +83,33 @@ describe('Skeletons.prototype',function(){
         }
         return {schema, data} 
       }())
-      const rule = new Skeletons(schema)
+      const rule = new Skeletons(schema,{ console: false })
       rule.validate([])
       assert.strictEqual(rule.valid,false)
       assert.strictEqual(rule.warnings.length,num)
       rule.validate(data)
+      assert.strictEqual(rule.valid, true)
+    })
+    it('one passed case' ,function(){
+      const rule = Skeletons([
+        Number,
+        Skeletons.Number({ allowNaN: false }),
+        String,
+        [
+          Boolean,
+          Number
+        ],
+        Skeletons.Function()
+      ])
+      rule.validate(
+        [
+          1,
+          2,
+          '1',
+          [ true, 1 ],
+          function(a,b){ return a+b }
+        ]
+      )
       assert.strictEqual(rule.valid, true)
     })
   })

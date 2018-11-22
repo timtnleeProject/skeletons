@@ -13,7 +13,8 @@ describe('Skeletons.Array', function(){
         validator: null,
         required: true,
         default: undefined,
-        item: null
+        item: null,
+        array: undefined
       }
       skeletons.schema = Skeletons.Array()
       assert.deepEqual(skeletons.schema.opt,expect)
@@ -53,6 +54,33 @@ describe('Skeletons.Array', function(){
     warn.forEach((w,i)=>{
       assert.strictEqual(w.code,0)
       assert.deepEqual(w.depth,[i,'x'])
+    })
+  })
+  describe('options.array' ,function(){
+    it('array literal' ,function(){
+      const rule = new Skeletons(Skeletons.Array({
+        array: []
+      })).validate([],{ console: false })
+      assert.strictEqual(rule.valid, true)
+    })
+    it('not array literal', function(){
+      dataset.not([]).push(Skeletons.Array({}), String).forEach(sh=>{
+        const rule = new Skeletons(Skeletons.Array({
+          array: sh
+        })).valid([],{ console: false })
+        assert.strictEqual(rule.valid, false)
+        assert.strictEqual(rule.warnings.length,1)
+        assert.strictEqual(rule.warnings[0].code, 99)
+      })
+    })
+    it('check array' ,function(){
+      const rule = new Skeletons(Skeletons.Array({
+        array: [
+          Number,
+          Boolean
+        ]
+      }),{ console: false }).validate([1,true])
+      assert.strictEqual(rule.valid, true)
     })
   })
 })
