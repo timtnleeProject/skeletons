@@ -76,6 +76,8 @@ rule.valid //false
 
 ## Version
 
+* **0.0.9**
+  * update [warnings][warn] table.
 * **0.0.8**
   * add new schema: [array literal schema][schema].
 * **0.0.7**
