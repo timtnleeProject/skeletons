@@ -375,5 +375,5 @@ more about [warnings][warn] and [Document][doc].
 [warn]:https://github.com/timtnleeProject/skeletons/wiki/Warnings
 [typeof]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonstypeofdata
 [schema]:https://www.npmjs.com/package/skeletons#define-schema
-[example]:https://github.com/timtnleeProject/skeletons/wiki/Home/_edit#examples
-[ex_ary]:https://github.com/timtnleeProject/skeletons/wiki/Home/_edit#array-literal
+[example]:https://github.com/timtnleeProject/skeletons/wiki#examples
+[ex_ary]:https://github.com/timtnleeProject/skeletons/wiki
