@@ -1,5 +1,5 @@
 function staticFactory(Skeletons) {
-  Skeletons._version_ = '0.0.7'
+  Skeletons._version_ = '0.0.8'
 
   Skeletons.String = function(opt){
     const extend_opt = {}
@@ -9,6 +9,7 @@ function staticFactory(Skeletons) {
   Skeletons.Array = function(opt){
     const extend_opt = {
       item: null,
+      array: undefined
     }
     return new Skeletons.Types(opt, 'ArrayFn', extend_opt)
   }
@@ -112,6 +113,17 @@ function staticFactory(Skeletons) {
       if(opt[k]===undefined) opt[k] = default_opt[k]
     }
     return opt
+  }
+
+  Skeletons.expectType = function(schema) {
+    if (schema instanceof Skeletons.Types) {
+      return schema.name.toLowerCase()
+    }
+    //primitive type function(String,Boolean)的schema?
+    if (typeof schema === 'function') {
+      return Skeletons.typeof(schema())
+    }
+    return Skeletons.typeof(schema)
   }
 }
 

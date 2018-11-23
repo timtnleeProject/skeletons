@@ -10,15 +10,15 @@ module.exports = function (Skeletons) {
     }
     if (opt.validator) {
       if (typeof opt.validator !== 'function') return this.warn(depth, 'options.validator must be a function', 99)
-      if (opt.validator(data_deep, this.root.data) !== true) return this.warn(depth, 'validation failed', 2)
+      if (opt.validator(data_deep, this.root.data)!== true) return this.warn(depth, 'validation failed', 2)
     }
     return 200 //keep check extra options
   }
   Skeletons.prototype.ArrayFn = function (opt, depth) {
     const status = this.SOP(opt, depth, 'array', (val) => Array.isArray(val))
     if (status != 200) return
+    const { data_deep } = this.getDepth(depth)
     if (opt.item) {
-      const { data_deep } = this.getDepth(depth)
       const item_schema = new Skeletons(opt.item) 
       data_deep.forEach((d,i) => {
         item_schema.subValidate(d,this)
@@ -27,6 +27,17 @@ module.exports = function (Skeletons) {
           originDepth: [...depth,i],
           schemaName: 'Skeletons.Array({ item }) options.item'
         })
+      })
+    }
+    if (opt.array!==undefined) {
+      const ary_schema = opt.array
+      if(Skeletons.typeof(ary_schema)!=='array') return this.warn(depth,'Skeletons.Array({ array }) options.array must be an array iteral schema []',99)
+      const rule = new Skeletons(ary_schema)
+      rule.subValidate(data_deep, this)
+      if(!rule.valid) this.useOriginWarn({
+        warnings: rule.warnings,
+        originDepth: [...depth],
+        schemaName: 'Skeletons.Array({ array }) options.array'
       })
     }
   }
@@ -113,7 +124,7 @@ module.exports = function (Skeletons) {
           break
         }
       }
-      if(!valid) this.warn(depth, 'value no matched type for Skeletons.Any({ include })', 7)
+      if(!valid) this.warn(depth, 'validation fail at Skeletons.Any({ include }): ', 7)
     }
     if(opt.exclude) {
       if(!Array.isArray(opt.exclude)) return this.warn(depth,'Skeletons.Any({ exclude }): exclude must be array',99)
@@ -128,7 +139,7 @@ module.exports = function (Skeletons) {
           break
         }
       }
-      if(!valid) this.warn(depth, 'value type exists in Skeletons.Any({ exclude })', 7)
+      if(!valid) this.warn(depth, 'validation fail at Skeletons.Any({ exclude })', 7)
     }
   }
 }

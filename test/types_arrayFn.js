@@ -64,10 +64,12 @@ describe('Skeletons.Array', function(){
       assert.strictEqual(rule.valid, true)
     })
     it('not array literal', function(){
-      dataset.not([]).push(Skeletons.Array({}), String).forEach(sh=>{
+      const test = dataset.not([]).not(undefined)
+      test.push(Skeletons.Array({}), String)
+      test.forEach(sh=>{
         const rule = new Skeletons(Skeletons.Array({
           array: sh
-        })).valid([],{ console: false })
+        })).validate([],{ isbranch: true })
         assert.strictEqual(rule.valid, false)
         assert.strictEqual(rule.warnings.length,1)
         assert.strictEqual(rule.warnings[0].code, 99)

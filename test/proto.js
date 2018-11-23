@@ -87,11 +87,17 @@ describe('Skeletons.prototype',function(){
       rule.validate([])
       assert.strictEqual(rule.valid,false)
       assert.strictEqual(rule.warnings.length,num)
+      assert.strictEqual(rule.warnings[0].code,0)
       rule.validate(data)
       assert.strictEqual(rule.valid, true)
+      data.push(1)
+      rule.validate(data)
+      assert.strictEqual(rule.valid,false)
+      assert.strictEqual(rule.warnings.length,1)
+      assert.strictEqual(rule.warnings[0].code,4)
     })
     it('one passed case' ,function(){
-      const rule = Skeletons([
+      const rule = new Skeletons([
         Number,
         Skeletons.Number({ allowNaN: false }),
         String,

@@ -10,7 +10,7 @@
 
 You might bother with data validation.
 
-(notice: there were some mistkes in Readme examples and were fixed at version 0.0.6)
+(notice: there were some mistakes in Readme examples and were fixed at version 0.0.6)
 
 ```javascript
 if(typeof data!=='object'||data===null) throw 'options must be an object'
@@ -20,7 +20,7 @@ if(typeof data.age === 'number' && !isNaN(data.age)) { /* ... */ }
 //....
 ```
 
-Skeletons provide an intuitive way to define rule that makes sure all data meet your expectations, lets you focus on other things in programming.
+Skeletons provide an intuitive way to define a rule that makes sure all data meet your expectations, lets you focus on other things in programming.
 
 ```javascript
 const Skeletons = require('skeletons')
@@ -76,10 +76,12 @@ rule.valid //false
 
 ## Version
 
+* **0.0.8**
+  * add new schema: [array literal schema][schema].
 * **0.0.7**
-  * [Skeletons.Object][object] has new option `options.extraKey`
+  * [Skeletons.Object][object] has new option `options.extraKey`.
 * **0.0.6**
-  * *Fixed some mistakes in Readme.md examples.
+  * *fixed some mistakes in Readme.md examples.
 * **0.0.5**
   * remove unused warning type.
   * fixed schema warnings.
@@ -95,11 +97,14 @@ rule.valid //false
 
 ### nodejs
 
+as a dependency or devDependency
+
 ```linux
 npm i --save skeletons
+npm i -D skeletons
 ```
 
-```js
+```javascript
 //CommonJs
 const Skeletons = require('skeletons')
 
@@ -109,7 +114,7 @@ import Skeletons from 'skeletons'
 
 ### browser
 
-script for browser at `/dist/skeletons.min.js`
+the script for browsers at `/dist/skeletons.min.js`
 
 unpkg cdn : `https://unpkg.com/skeletons@:version/dist/skeletons.min.js`
 
@@ -117,12 +122,13 @@ unpkg cdn : `https://unpkg.com/skeletons@:version/dist/skeletons.min.js`
 
 * [document][doc]
 * [static function][static]
+* [Some examples][example]
 
 ## Must Know
 
 ### null
 
-In javascript, `null` is a primitive type, however typeof null is
+In javascript, `null` is a primitive type, however, typeof null is
 
 ```javascript
 typeof null // 'object'
@@ -130,33 +136,33 @@ typeof null // 'object'
 
 Skeletons use [Skeletons.typeof][typeof] instead of `typeof` to check types.
 
-When define schema to be object but got `null`, validation will fail.
+When defining schema to be an object but got `null`, validation will fail.
 
-To define a `null` value schema, use Skeletons.Null()
+To define a `null` value schema, use [Skeletons.Null()][null].
 
 ### array
 
-In javascript, array is also an object
+In javascript, an array is also an object
 
 ```javascript
 typeof [] // 'object'
 ```
 
-However Skeletons will distinguish array from object.
+However, Skeletons will distinguish the array from the object.
 
-To define an array schema, use Skeletons.Array()
+To define an array schema, use `Skeletons.Array()` or [array literal schema][schema].
 
 ### function
 
-```js
+```javascript
 typeof function(){} // 'function'
 ```
 
-Although typeof function return `'function'`, it is worth mentioning that function is also a **Function Object**, however Skeletons will distinguish function from object.
+Although typeof function return `'function'`, it is worth mentioning that function is also a **Function Object**, however, Skeletons will distinguish the function from the object.
 
 So you cannot define an 'object' schema but got 'function' at data.
 
-To define an function schema, use Skeletons.Function()
+To define a function schema, use [Skeletons.Function()][function].
 
 ### undefined
 
@@ -166,34 +172,53 @@ To allow `undefined` value, see [options.required][required].
 
 ## Define Schema
 
-There are three types of schema
+Passing a schema to create a rule:
+
+```javascript
+let rule_ex1 = new Skeletons(schema)
+
+//or assign schema later
+let rule_ex2 = new Skeletons()
+rule_ex2.schema = schema
+```
+
+There are four types of schema
+
+* premitive types function
+* object literal
+* array literal (version 0.0.8)
+* call Skeletons static function
 
 ### premitive types **function**
 
-* String : define a string
-* Number : define a number
-* Boolean : define a boolean
-* Symbol : define a symbol
+* String: define a string
+* Number: define a number
+* Boolean: define a boolean
+* Symbol: define a symbol
+
+```javascript
+new Skeletons(Number).validate(5)
+```
 
 Only **premitive types** function, **do not use** other functions like *Object*, *Array*.
 
-### use object literal to define keys/values
+### object literal
 
-To defined deeper keys and values in object
+use object literal to define keys/values and deeper layers.
 
 ```javascript
 {
-  key1: <other_schema>,
+  key1: <schema>,
   key2: {
-    key21: <other_schema>
+    key21: <schema>
     key22: {
-      key221: <other_schema>
+      key221: <schema>
     }
   }
 }
 ```
 
-This type of schema define an object that has exactly keys.
+This type of schema defines an **object** that has **exactly keys**.
 
 Validation for data that missing keys or has extra keys will fail.
 
@@ -202,12 +227,13 @@ const rule = new Skeletons({
   x: Number,
   y: Number,
 })
-
+// missing keys/properties
 rule.validate({
   x: 1,
 })
 //Skeletons Warn: [Unexpected Type] at data['y']: expect [number] but got [undefined]
 
+// has extra keys/properties
 rule.validate({
   x: 1,
   y: 2,
@@ -222,7 +248,21 @@ To allow dynamic keys in object, use [MapObject][mapobject].
 
 To check keys that are defined and also ignore keys that are not defined, see [Skeletons.Object][object] : set `options.extraKey` to `true`.
 
+### array literal
+
+To define an **array** that **has exact numbers of elements**.
+
+```javascript
+[<schema>,<schema>,<schema>...]
+```
+
+Here's [example][ex_ary]
+
+To defined an array that has repeated elements, use [Skeletons.Array()][array].
+
 ### call Skeletons static function
+
+These functions allow you to pass options to define a flexible rule.
 
 * [Skeletons.Number()][number]
 * [Skeletons.String()][string]
@@ -276,11 +316,11 @@ rule.validate(1 ,{
 })
 ```
 
-If data isn't valid, skeletons will show warning message in console or throw error depends on your setting.
+If data isn't valid, skeletons will show the warning message in the console or throw error depends on your setting.
 
-However if there's a schema problem (defined a wrong schema), skeletons will always throw error.
+However, if there's a schema problem (defined a wrong schema), skeletons will always throw an error.
 
-**notice** : Skeletons will discover schema erorrs only when `rule.validate()` called.
+**notice** : Skeletons will not discover schema erorrs until `rule.validate()` is called.
 
 ### rule.valid
 
@@ -334,3 +374,6 @@ more about [warnings][warn] and [Document][doc].
 [symbol]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonssymbol
 [warn]:https://github.com/timtnleeProject/skeletons/wiki/Warnings
 [typeof]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonstypeofdata
+[schema]:https://www.npmjs.com/package/skeletons#define-schema
+[example]:https://github.com/timtnleeProject/skeletons/wiki/Home/_edit#examples
+[ex_ary]:https://github.com/timtnleeProject/skeletons/wiki/Home/_edit#array-literal

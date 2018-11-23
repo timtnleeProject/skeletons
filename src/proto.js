@@ -42,12 +42,32 @@ function protoFatory(Skeletons) {
       }
       return
     }
-    //object literal schema?
-    if(Skeletons.typeof(schema_deep)!=='object') {
+    const schema_type = Skeletons.typeof(schema_deep)
+    //array literal schema
+    if(schema_type==='array') {
+      const data_type = Skeletons.typeof(data_deep)
+      if(data_type!=='array') {
+        this.warn(depth,`expect [array] but got [${data_type}]`, 0)
+        return
+      }
+      schema_deep.forEach((_s,i)=>{
+        this.lookup([...depth,i])
+      })
+      if(schema_deep.length<data_deep.length) {
+        let i = schema_deep.length
+        while(i<data_deep.length) {
+          this.warn([...depth,i],`index [${i}] not defined in schema`,4)
+          i++
+        }
+      }
+      return
+    }
+    //not object literal schema, throw
+    if(schema_type!=='object') {
       this.warn(depth,'is not a valid schema and will be ignored, please fixed it.',99) 
       return
     }
-    //是object literal schema, 驗證資料
+    //is object literal schema, 驗證資料
     const data_type = Skeletons.typeof(data_deep)
     if (data_type!='object') {
       return this.warn(depth, `expect object, got ${data_type}`, 1)
