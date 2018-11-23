@@ -106,6 +106,9 @@ function protoFatory(Skeletons) {
     case 2:
       type = '[Value invalid]'
       break
+    case 4:
+      type = '[Unknown index]'
+      break
     case 5:
       type = '[Unknown Property]'
       break
