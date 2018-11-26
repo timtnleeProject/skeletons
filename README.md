@@ -150,7 +150,7 @@ In javascript, an array is also an object
 typeof [] // 'object'
 ```
 
-However, Skeletons will distinguish the array from the object.
+However, Skeletons will distinguish the array from other objects.
 
 To define an array schema, use `Skeletons.Array()` or [array literal schema][schema].
 
