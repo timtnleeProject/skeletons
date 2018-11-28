@@ -76,6 +76,8 @@ rule.valid //false
 
 ## Version
 
+* **0.0.10**
+  * fixed [options.validator][validator] bug: parameter `data` not passing correctly at Skeletons static function.
 * **0.0.9**
   * update [warnings][warn] table.
 * **0.0.8**
@@ -364,6 +366,7 @@ more about [warnings][warn] and [Document][doc].
 [doc]:https://github.com/timtnleeProject/skeletons/wiki/Document
 [static]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function
 [required]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#optionsrequired
+[validator]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#optionsvalidator
 [number]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsnumber
 [boolean]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsboolean
 [string]:https://github.com/timtnleeProject/skeletons/wiki/Skeletons-Static-function#skeletonsstring
