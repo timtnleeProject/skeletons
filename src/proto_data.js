@@ -21,7 +21,7 @@ module.exports = function (Skeletons) {
     if (opt.item) {
       const item_schema = new Skeletons(opt.item) 
       data_deep.forEach((d,i) => {
-        item_schema.subValidate(d,this)
+        item_schema.subValidate(d,this.root)
         if(!item_schema.valid) this.useOriginWarn({
           warnings: item_schema.warnings,
           originDepth: [...depth,i],
@@ -33,7 +33,7 @@ module.exports = function (Skeletons) {
       const ary_schema = opt.array
       if(Skeletons.typeof(ary_schema)!=='array') return this.warn(depth,'Skeletons.Array({ array }) options.array must be an array iteral schema []',99)
       const rule = new Skeletons(ary_schema)
-      rule.subValidate(data_deep, this)
+      rule.subValidate(data_deep, this.root)
       if(!rule.valid) this.useOriginWarn({
         warnings: rule.warnings,
         originDepth: [...depth],
@@ -53,7 +53,7 @@ module.exports = function (Skeletons) {
       if(Skeletons.typeof(opt.object)!=='object') return this.warn(depth,'Skeletons.Object({ object }) options.object must be an object {}',99)
       if(opt.object instanceof Skeletons.Types) return this.warn(depth,'Skeletons.Object({ object }) options.object can only use literal object schema {}',99)
       const schema = new Skeletons(opt.object, { rule: { extraKey: opt.extraKey } })
-      schema.subValidate(data_deep, this)
+      schema.subValidate(data_deep, this.root)
       if(!schema.valid) {
         this.useOriginWarn({
           warnings: schema.warnings,
@@ -76,7 +76,7 @@ module.exports = function (Skeletons) {
     if(opt.item) {
       const schema = new Skeletons(opt.item)
       for(let k in data_deep) {
-        schema.subValidate(data_deep[k],this)
+        schema.subValidate(data_deep[k],this.root)
         if(!schema.valid) {
           this.useOriginWarn({
             warnings: schema.warnings,
@@ -118,7 +118,7 @@ module.exports = function (Skeletons) {
       for(let i=0;i<opt.include.length;i++){
         let schema =opt.include[i]
         let check = new Skeletons(schema)
-        check.subValidate(data_deep, this)
+        check.subValidate(data_deep, this.root)
         if(check.valid) { 
           valid = true
           break
@@ -133,7 +133,7 @@ module.exports = function (Skeletons) {
       for(let i=0;i<opt.exclude.length;i++){
         let schema =opt.exclude[i]
         let check = new Skeletons(schema)
-        check.subValidate(data_deep, this)
+        check.subValidate(data_deep, this.root)
         if(check.valid) { 
           valid = false
           break

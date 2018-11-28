@@ -109,6 +109,31 @@ describe('data normal SOP' ,function(){
           skeletons.validate(data)
         })
       })
+      it('deep structure', function(){
+        const data = {
+          a: {
+            b:{
+              c: [
+                '1'
+              ]
+            }
+          }
+        }
+        new Skeletons(Skeletons.MapObject({
+          item: {
+            b: {
+              c: Skeletons.Array({
+                item : Skeletons.String({
+                  validator: (_v,d)=>{
+                    assert.strictEqual(d,data)
+                    return true
+                  }
+                })
+              })
+            }
+          }
+        })).validate(data)
+      })
     })
   })
   describe('default',function(){
