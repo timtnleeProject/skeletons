@@ -12,6 +12,13 @@ function protoFatory(Skeletons) {
     //init setup
     this.data = data
     this.valid = true
+    // this.store
+    Object.defineProperty(this, 'store',{
+      value: {},
+      configurable: true,
+      enumerable : true,
+      writable: false,
+    })
     this.warnings = []
     this.lookup([])
     return this

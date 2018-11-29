@@ -135,6 +135,49 @@ describe('data normal SOP' ,function(){
         })).validate(data)
       })
     })
+    describe('validator(_v,_d,store) store is correct', function(){
+      it('default', function(){
+        const rule = new Skeletons(Skeletons.Object({
+          validator: (_v,_d,store)=>{
+            assert.strictEqual(store,rule.store)
+            return true
+          }
+        }))
+        rule.validate({})
+      })
+      it('set property', function(){
+        const rule = new Skeletons(Skeletons.Object({
+          validator: (_v,_d,store)=>{
+            store.test = 'a'
+            return true
+          },
+          object: {
+            a: Skeletons.String({
+              validator: (_v,_d,store)=>{
+                assert.strictEqual(store.test,'a')
+                return true
+              }
+            })
+          }
+        }))
+        rule.validate({})
+      })
+      it('deep, use root store' ,function(){
+        const rule = new Skeletons({
+          a: Skeletons.Array({
+            item: Skeletons.Object({
+              validator: (_v,_d,store)=>{
+                assert.strictEqual(store, rule.store)
+                return true
+              }
+            })
+          })
+        })
+        rule.validate({
+          a: [{}]
+        })
+      })
+    })
   })
   describe('default',function(){
     for(let type of types){

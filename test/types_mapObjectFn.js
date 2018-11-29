@@ -76,5 +76,46 @@ describe('Skeletons.MapObject', function(){
       testleton.validate(datasource)
       assert.strictEqual(testleton.valid, false)
     })
+    it('default', function(){
+      const rule = new Skeletons(Skeletons.MapObject({
+        keyValidator: (_v,_d,store)=>{
+          assert.strictEqual(store,rule.store)
+          return true
+        }
+      }))
+      rule.validate({})
+    })
+    it('set property', function(){
+      const rule = new Skeletons(Skeletons.MapObject({
+        keyValidator: (_v,_d,store)=>{
+          store.test = 'a'
+          return true
+        },
+        item: {
+          a: Skeletons.MapObject({
+            keyValidator: (_v,_d,store)=>{
+              assert.strictEqual(store.test,'a')
+              return true
+            }
+          })
+        }
+      }))
+      rule.validate({a:{b:''}})
+    })
+    it('deep, use root store' ,function(){
+      const rule = new Skeletons({
+        a: Skeletons.Array({
+          item: Skeletons.MapObject({
+            keyValidator: (_v,_d,store)=>{
+              assert.strictEqual(store, rule.store)
+              return true
+            }
+          })
+        })
+      })
+      rule.validate({
+        a: [{}]
+      })
+    })
   })
 })

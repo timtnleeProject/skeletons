@@ -10,7 +10,7 @@ module.exports = function (Skeletons) {
     }
     if (opt.validator) {
       if (typeof opt.validator !== 'function') return this.warn(depth, 'options.validator must be a function', 99)
-      if (opt.validator(data_deep, this.root.data)!== true) return this.warn(depth, 'validation failed', 2)
+      if (opt.validator(data_deep, this.root.data, this.root.store)!== true) return this.warn(depth, 'validation failed', 2)
     }
     return 200 //keep check extra options
   }
@@ -67,24 +67,37 @@ module.exports = function (Skeletons) {
     const status = this.SOP(opt, depth, 'object', (val)=> Skeletons.typeof(val)==='object')
     if (status != 200) return
     const { data_deep } = this.getDepth(depth)
-    if(opt.keyValidator) {
-      if(typeof opt.keyValidator!=='function') return this.warn(depth, 'Skeletons.MapObject({ keyValidator }) options.keyValidator must be function',99)
-      for(let k in data_deep) {
-        if(opt.keyValidator(k, this.root.data)!==true) this.warn(depth,`keyValidator failed at key ${k}`,6)
+    const exist = {
+      keyValidator: false,
+      validateItem: false
+    }
+    const keyValidator = (k)=>{
+      if(!exist.keyValidator) return
+      if(opt.keyValidator(k, this.root.data, this.root.store)!==true) this.warn(depth,`keyValidator failed at key ${k}`,6)
+    }
+    const validateItem = (k, data_deep, schema)=>{
+      if(!exist.validateItem) return
+      schema.subValidate(data_deep[k],this.root)
+      if(!schema.valid) {
+        this.useOriginWarn({
+          warnings: schema.warnings,
+          originDepth: [...depth,k],
+          schemaName: 'Skeletons.MapObject({ item }) options.item'
+        })
       }
     }
+    if(opt.keyValidator) {
+      if(typeof opt.keyValidator!=='function') return this.warn(depth, 'Skeletons.MapObject({ keyValidator }) options.keyValidator must be function',99)
+      exist.keyValidator = true
+    }
     if(opt.item) {
-      const schema = new Skeletons(opt.item)
-      for(let k in data_deep) {
-        schema.subValidate(data_deep[k],this.root)
-        if(!schema.valid) {
-          this.useOriginWarn({
-            warnings: schema.warnings,
-            originDepth: [...depth,k],
-            schemaName: 'Skeletons.MapObject({ item }) options.item'
-          })
-        }
-      }
+      exist.validateItem = true
+    }
+    if(!exist.validateItem&&!exist.keyValidator) return
+    const schema = new Skeletons(opt.item)
+    for(let k in data_deep) {
+      keyValidator(k)
+      validateItem(k,data_deep, schema)
     }
   }
   Skeletons.prototype.FunctionFn = function(opt, depth) {

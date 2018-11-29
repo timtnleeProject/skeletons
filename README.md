@@ -76,6 +76,8 @@ rule.valid //false
 
 ## Version
 
+* **0.0.11**
+  * [options.validator][validator]/[options.keyValidator][mapobject] add new option `store`, see the [use case][ex_mapobj].
 * **0.0.10**
   * fixed [options.validator][validator] bug: parameter `data` not passing correctly at Skeletons static function.
 * **0.0.9**
@@ -382,3 +384,4 @@ more about [warnings][warn] and [Document][doc].
 [schema]:https://www.npmjs.com/package/skeletons#define-schema
 [example]:https://github.com/timtnleeProject/skeletons/wiki#examples
 [ex_ary]:https://github.com/timtnleeProject/skeletons/wiki
+[ex_mapobj]:https://github.com/timtnleeProject/skeletons/wiki#mapping-object-keys
