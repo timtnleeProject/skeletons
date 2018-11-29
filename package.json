@@ -1,6 +1,6 @@
 {
   "name": "skeletons",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "check your data structure in code",
   "main": "index.js",
   "scripts": {
