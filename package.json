@@ -12,7 +12,9 @@
     "schema",
     "validation",
     "data",
-    "json"
+    "json",
+    "test",
+    "mocha"
   ],
   "repository": {
     "type": "git",
