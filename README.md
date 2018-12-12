@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/timtnleeProject/skeletons.svg?branch=master)](https://travis-ci.com/timtnleeProject/skeletons) [![npm version](https://badge.fury.io/js/skeletons.svg)](https://badge.fury.io/js/skeletons)
 
-* Skeleton**s** is a pure javascript library that helps you validate data structure in programming.
+* Skeleton**s** is a pure javascript library that helps you validate data structure in programming/tesing.
 
 * Define your rules, validate data sources and parameters/arguments to make sure they meet your expectations.
 
