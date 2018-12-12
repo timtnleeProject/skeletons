@@ -76,6 +76,8 @@ rule.valid //false
 
 ## Version
 
+* **0.0.12**
+  * update information on npm, nothing changed in code.
 * **0.0.11**
   * [options.validator][validator]/[options.keyValidator][mapobject] add new option `store`, see the [use case][ex_mapobj].
 * **0.0.10**
