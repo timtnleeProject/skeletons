@@ -1,12 +1,8 @@
 const assert = require('assert')
 const fs = require('fs')
 const path = require('path')
-const Skeletons = require('../index')
-const dist = require('../dist/skeletons.test.js')
+const Skeletons = require('../lib/index')
 describe('Skeletons static',function(){
-  it('build script' ,function(){
-    assert.strictEqual(dist._version_, Skeletons._version_)
-  })
   it('npm version match script version', function(){
     let pkg = fs.readFileSync(path.resolve(__dirname,'../package.json'))
     pkg=JSON.parse(pkg)

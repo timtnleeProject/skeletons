@@ -1,4 +1,4 @@
-const Skeletons = require('../index')
+const Skeletons = require('../lib/index')
 const testing = {}
 const types = [
   'String',

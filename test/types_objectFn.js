@@ -1,6 +1,6 @@
 const assert = require('assert')
 
-const Skeletons = require('../index')
+const Skeletons = require('../lib/index')
 
 const { dataset } = require('./testdata')
 

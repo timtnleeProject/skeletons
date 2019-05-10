@@ -1,4 +1,4 @@
-module.exports = function (Skeletons) {
+export default function (Skeletons) {
   Skeletons.prototype.SOP = function (opt, depth, name, filter) {
     let { data_deep } = this.getDepth(depth)
     if (opt.required === false && data_deep === undefined) return //undefined, but not required

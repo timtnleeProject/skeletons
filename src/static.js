@@ -127,4 +127,4 @@ function staticFactory(Skeletons) {
   }
 }
 
-module.exports = staticFactory
+export default staticFactory

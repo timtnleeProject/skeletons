@@ -1,7 +1,7 @@
 const assert = require('assert')
 
-const Skeletons = require('../index')
-
+const Skeletons = require('../lib/index')
+console.log(Skeletons)
 describe('Skeletons', function(){
   describe('new Skeletons' ,function(){
     it('assign schema', function(){

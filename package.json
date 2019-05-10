@@ -2,10 +2,11 @@
   "name": "skeletons",
   "version": "0.0.12",
   "description": "check your data structure in code",
-  "main": "index.js",
+  "main": "dist/skeletons.common",
+  "module": "index",
   "scripts": {
     "test": "mocha",
-    "build": "webpack --config build/webpack.config.js && webpack --config build/test.config.js"
+    "build": "webpack && babel src --out-dir lib"
   },
   "keywords": [
     "skeletons",
@@ -22,6 +23,10 @@
   "author": "timtnlee",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "eslint": "^5.8.0",
     "mocha": "^5.2.0",
     "webpack": "^4.25.1",

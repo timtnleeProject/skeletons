@@ -162,4 +162,4 @@ function protoFatory(Skeletons) {
 }
 
 
-module.exports = protoFatory
+export default protoFatory

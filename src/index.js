@@ -1,6 +1,6 @@
-const staticFactory = require('./src/static')
-const protoFactory = require('./src/proto')
-const protoDataFactory = require('./src/proto_data')
+import staticFactory from './static'
+import protoFactory from './proto'
+import protoDataFactory from './proto_data'
 
 function Skeletons(schema, opt={}) {
   this.schema = schema
@@ -20,4 +20,4 @@ staticFactory(Skeletons)
 protoFactory(Skeletons)
 protoDataFactory(Skeletons)
 
-module.exports = Skeletons
+export default Skeletons

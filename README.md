@@ -306,7 +306,7 @@ set default options to `rule.default`
 let rule = new Skeletons(Boolean, {
   console: true, //use console to show validate warnings
   throw: false, //throw validate warning
-  dataName: 'datasource' //data name show in warning message
+  dataName: 'datasource', //data name show in warning message
   schemName: 'mySchema' //schema name show in warning message
 })
 .validate(1)
