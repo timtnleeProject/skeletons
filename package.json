@@ -1,6 +1,6 @@
 {
   "name": "skeletons",
-  "version": "0.0.12",
+  "version": "0.1.0",
   "description": "check your data structure in code",
   "main": "lib/index",
   "module": "src/index",
