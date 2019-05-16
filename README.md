@@ -76,30 +76,8 @@ rule.valid //false
 
 ## Version
 
-* **0.0.12**
-  * update information on npm, nothing changed in code.
-* **0.0.11**
-  * [options.validator][validator]/[options.keyValidator][mapobject] add new option `store`, see the [use case][ex_mapobj].
-* **0.0.10**
-  * fixed [options.validator][validator] bug: parameter `data` not passing correctly at Skeletons static function.
-* **0.0.9**
-  * update [warnings][warn] table.
-* **0.0.8**
-  * add new schema: [array literal schema][schema].
-* **0.0.7**
-  * [Skeletons.Object][object] has new option `options.extraKey`.
-* **0.0.6**
-  * *fixed some mistakes in Readme.md examples.
-* **0.0.5**
-  * remove unused warning type.
-  * fixed schema warnings.
-  * add [warnings][warn] wiki.
-* **0.0.4**
-  * fixed test script/build script.
-  * fixed unnecessary validation and warnings.
-* **0.0.3**
-  * add [`Skeletons.Symbol`][symbol] schema define function.
-  * `Skeletons.Object({ object })` object default set to `{}`.
+* **0.1.0**
+  * Add es module support
 
 ## Installation
 
