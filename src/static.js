@@ -1,4 +1,6 @@
 function staticFactory(Skeletons) {
+  Skeletons._version_ = '0.1.0'
+
   Skeletons.String = function(opt){
     const extend_opt = {}
     return new Skeletons.Types(opt,'StringFn', extend_opt)
