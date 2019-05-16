@@ -2,8 +2,8 @@
   "name": "skeletons",
   "version": "0.0.12",
   "description": "check your data structure in code",
-  "main": "dist/skeletons.common",
-  "module": "index",
+  "main": "lib/index",
+  "module": "src/index",
   "scripts": {
     "test": "mocha",
     "build": "webpack && babel src --out-dir lib"
