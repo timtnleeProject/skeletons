@@ -54,7 +54,7 @@ declare class Skeletons {
     static Symbol(opt?:basic):any
     static typeof(data:any):string
 
-    validate ():any
+    validate (data:any, opt?:optionsIn):any
 }
 
 export default Skeletons
