@@ -1,5 +1,5 @@
 function staticFactory(Skeletons) {
-  Skeletons._version_ = '0.1.0'
+  Skeletons._version_ = '0.1.2'
 
   Skeletons.String = function(opt){
     const extend_opt = {}
