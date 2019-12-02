@@ -1,5 +1,7 @@
+import { version } from '../package.json'
+
 function staticFactory(Skeletons) {
-  Skeletons._version_ = '0.1.2'
+  Skeletons._version_ = version
 
   Skeletons.String = function(opt){
     const extend_opt = {}
