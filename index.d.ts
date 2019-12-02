@@ -26,7 +26,7 @@ interface objectOpt extends basic {
 }
 
 interface mapObjectOpt extends basic {
-    keyValidator (key?:string, data?:any):void,
+    keyValidator (key?:string, data?:any):boolean,
     item?:any
 }
 
@@ -54,7 +54,7 @@ declare class Skeletons {
     static Symbol(opt?:basic):any
     static typeof(data:any):string
 
-    validate (data:any, opt?:optionsIn):any
+    validate (data:any, opt?:optionsIn):Skeletons
 }
 
 export default Skeletons
