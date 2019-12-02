@@ -107,7 +107,12 @@ export default function (Skeletons) {
     this.SOP(opt, depth, 'null', (val)=> Skeletons.typeof(val)==='null')
   }
   Skeletons.prototype.StringFn = function (opt, depth) {
-    this.SOP(opt, depth, 'string', (val) => typeof val === 'string')
+    const status = this.SOP(opt, depth, 'string', (val) => typeof val === 'string')
+    if (status === 200 && opt.match) {
+      if (!(opt.match instanceof RegExp)) return this.warn(depth, 'options.match must be a RegExp', 99)
+      const { data_deep } = this.getDepth(depth)
+      if (!data_deep.match(opt.match)) this.warn(depth, 'Skeletons.String({ match }), value do not matches', 2)
+    }
   }
   Skeletons.prototype.NumberFn = function(opt, depth){
     const status = this.SOP(opt, depth, 'number', (val) => typeof val === 'number')

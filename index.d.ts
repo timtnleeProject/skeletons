@@ -35,6 +35,10 @@ interface anyOpt extends basic {
     exclude?:any
 }
 
+interface stringOpt extends basic {
+    match?:RegExp
+}
+
 declare class Skeletons {
     schema:any
     options:any
@@ -43,7 +47,7 @@ declare class Skeletons {
     constructor(schema?:any, options?:optionsIn)
     
     static Number(opt?:numberOpt):any
-    static String(opt?:basic):any
+    static String(opt?:stringOpt):any
     static Boolean(opt?:basic):any
     static Null(opt?:basic):any
     static Any(opt?:any):any

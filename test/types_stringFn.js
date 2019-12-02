@@ -28,4 +28,27 @@ describe('Skeletons.String', function(){
       })
     })
   })
+  describe('RegExp', () => {
+    const skeletonsRegExp = new Skeletons(Skeletons.String({
+      match: /^[a-z]*$/
+    }), {
+      console: false
+    })
+    const skeletonsRegExpWrongSyntax = new Skeletons(Skeletons.String({
+      match: '^[a-z]*$'
+    }))
+    it('data: matches', () => {
+      skeletonsRegExp.validate('abc')
+      assert.strictEqual(true, skeletonsRegExp.valid)
+    })
+    it('data: don\'t matches', () => {
+      skeletonsRegExp.validate('123')
+      assert.strictEqual(false, skeletonsRegExp.valid)
+    })
+    it('wrong syntax', () => {
+      assert.throws(() => {
+        skeletonsRegExpWrongSyntax.validate('abc')
+      })
+    })
+  })
 })
