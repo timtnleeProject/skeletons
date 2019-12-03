@@ -7,7 +7,7 @@ module.exports = {
   },
   output: {
     filename: 'skeletons.min.js',
-    path: path.resolve(__dirname,'../dist'),
+    path: path.resolve(__dirname,'./dist'),
     library: 'Skeletons',
     libraryTarget: 'window',
   },
