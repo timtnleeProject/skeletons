@@ -18,7 +18,9 @@ interface numberOpt extends basic {
 } 
 
 interface arrayOpt extends basic {
-    item?:any
+    item?:any,
+    minLength?:number,
+    maxLength?:number
 }
 
 interface objectOpt extends basic {
