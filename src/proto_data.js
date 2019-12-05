@@ -108,7 +108,7 @@ export default function (Skeletons) {
   }
   Skeletons.prototype.StringFn = function (opt, depth) {
     const status = this.SOP(opt, depth, 'string', (val) => typeof val === 'string')
-    if (status === 200 && opt.match) {
+    if (status === 200 && opt.match !== undefined) {
       if (!(opt.match instanceof RegExp)) return this.warn(depth, 'options.match must be a RegExp', 99)
       const { data_deep } = this.getDepth(depth)
       if (!data_deep.match(opt.match)) this.warn(depth, 'Skeletons.String({ match }), value do not matches', 2)
@@ -119,6 +119,14 @@ export default function (Skeletons) {
     if (status != 200) return
     const { data_deep } = this.getDepth(depth)
     if(opt.allowNaN===false&& isNaN(data_deep)) this.warn(depth,'Skeletons.Number({ allowNaN:false }), NaN value not allowed',0)
+    if (opt.min !== undefined) {
+      if (typeof opt.min !== 'number') return this.warn(depth, 'options.min must be a number', 99)
+      if (data_deep < opt.min) return this.warn(depth, `Skelerons.Number({ min }), ${data_deep} is lower than ${opt.min}`, 2)
+    }
+    if (opt.max !== undefined) {
+      if (typeof opt.max !== 'number') return this.warn(depth, 'options.max must be a number', 99)
+      if (data_deep > opt.max) return this.warn(depth, `Skelerons.Number({ max }), ${data_deep} is greater than ${opt.max}`, 2)
+    }
   }
   Skeletons.prototype.BooleanFn = function (opt, depth) {
     this.SOP(opt, depth, 'boolean', (val) => typeof val === 'boolean')

@@ -12,7 +12,9 @@ interface basic {
 }
 
 interface numberOpt extends basic {
-    allowNaN?:boolean
+    allowNaN?:boolean,
+    min?:number,
+    max?:number
 } 
 
 interface arrayOpt extends basic {

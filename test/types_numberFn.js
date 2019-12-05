@@ -38,4 +38,56 @@ describe('Skeletons.Number', function(){
       assert.strictEqual(skeletons.valid, false)
     })
   })
+  describe('min', () => {
+    const skeletonsInvalidMin = new Skeletons(Skeletons.Number({
+      min: '10'
+    }), {
+      console: false
+    });
+    const skeletonsMinTest = new Skeletons(Skeletons.Number({
+      min: 10
+    }), {
+      console: false
+    });
+    it('invalid schema', () => {
+      assert.throws(() => {
+        skeletonsInvalidMin.validate(0)
+      })
+    })
+    it('less', () => {
+      assert.strictEqual(skeletonsMinTest.validate(-1).valid, false);
+    })
+    it('equals', () => {
+      assert.strictEqual(skeletonsMinTest.validate(10).valid, true);
+    })
+    it('more', () => {
+      assert.strictEqual(skeletonsMinTest.validate(42).valid, true);
+    })
+  })
+  describe('max', () => {
+    const skeletonsInvalidMax = new Skeletons(Skeletons.Number({
+      max: '10'
+    }), {
+      console: false
+    });
+    const skeletonsMaxTest = new Skeletons(Skeletons.Number({
+      max: 10
+    }), {
+      console: false
+    });
+    it('invalid schema', () => {
+      assert.throws(() => {
+        skeletonsInvalidMax.validate(0)
+      })
+    })
+    it('less', () => {
+      assert.strictEqual(skeletonsMaxTest.validate(-1).valid, true);
+    })
+    it('equals', () => {
+      assert.strictEqual(skeletonsMaxTest.validate(10).valid, true);
+    })
+    it('more', () => {
+      assert.strictEqual(skeletonsMaxTest.validate(42).valid, false);
+    })
+  })
 })
