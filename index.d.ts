@@ -40,7 +40,9 @@ interface anyOpt extends basic {
 }
 
 interface stringOpt extends basic {
-    match?:RegExp
+    match?:RegExp,
+    minLength?:number,
+    maxLength?:number
 }
 
 declare class Skeletons {

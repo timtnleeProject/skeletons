@@ -51,4 +51,56 @@ describe('Skeletons.String', function(){
       })
     })
   })
+  describe('minLength', () => {
+    const skeletonsInvalidMin = new Skeletons(Skeletons.String({
+      minLength: '3'
+    }), {
+      console: false
+    });
+    const skeletonsMinTest = new Skeletons(Skeletons.String({
+      minLength: 3
+    }), {
+      console: false
+    });
+    it('invalid schema', () => {
+      assert.throws(() => {
+        skeletonsInvalidMin.validate('')
+      })
+    })
+    it('less', () => {
+      assert.strictEqual(skeletonsMinTest.validate('').valid, false);
+    })
+    it('equals', () => {
+      assert.strictEqual(skeletonsMinTest.validate('abc').valid, true);
+    })
+    it('more', () => {
+      assert.strictEqual(skeletonsMinTest.validate('abcd').valid, true);
+    })
+  })
+  describe('maxLength', () => {
+    const skeletonsInvalidMax = new Skeletons(Skeletons.String({
+      maxLength: '3'
+    }), {
+      console: false
+    });
+    const skeletonsMaxTest = new Skeletons(Skeletons.String({
+      maxLength: 3
+    }), {
+      console: false
+    });
+    it('invalid schema', () => {
+      assert.throws(() => {
+        skeletonsInvalidMax.validate('')
+      })
+    })
+    it('less', () => {
+      assert.strictEqual(skeletonsMaxTest.validate('').valid, true);
+    })
+    it('equals', () => {
+      assert.strictEqual(skeletonsMaxTest.validate('abc').valid, true);
+    })
+    it('more', () => {
+      assert.strictEqual(skeletonsMaxTest.validate('abcd').valid, false);
+    })
+  })
 })

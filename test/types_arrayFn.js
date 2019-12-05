@@ -111,7 +111,7 @@ describe('Skeletons.Array', function(){
       assert.strictEqual(skeletonsMinTest.validate(['a', 'b', 'c', 'd']).valid, true);
     })
   })
-  describe('minLength', () => {
+  describe('maxLength', () => {
     const skeletonsInvalidMax = new Skeletons(Skeletons.Array({
       maxLength: '3'
     }), {
