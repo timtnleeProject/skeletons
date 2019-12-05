@@ -8,6 +8,7 @@ interface optionsIn {
 interface basic {
   required?:boolean,
   default?:any,
+  strictEquals?:any,
   validator (value?:any, data?:any):boolean
 }
 
