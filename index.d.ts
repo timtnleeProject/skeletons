@@ -8,15 +8,20 @@ interface optionsIn {
 interface basic {
   required?:boolean,
   default?:any,
+  strictEquals?:any,
   validator (value?:any, data?:any):boolean
 }
 
 interface numberOpt extends basic {
-    allowNaN?:boolean
+    allowNaN?:boolean,
+    min?:number,
+    max?:number
 } 
 
 interface arrayOpt extends basic {
-    item?:any
+    item?:any,
+    minLength?:number,
+    maxLength?:number
 }
 
 interface objectOpt extends basic {
@@ -26,13 +31,19 @@ interface objectOpt extends basic {
 }
 
 interface mapObjectOpt extends basic {
-    keyValidator (key?:string, data?:any):void,
+    keyValidator (key?:string, data?:any):boolean,
     item?:any
 }
 
 interface anyOpt extends basic {
     include?:any,
     exclude?:any
+}
+
+interface stringOpt extends basic {
+    match?:RegExp,
+    minLength?:number,
+    maxLength?:number
 }
 
 declare class Skeletons {
@@ -43,7 +54,7 @@ declare class Skeletons {
     constructor(schema?:any, options?:optionsIn)
     
     static Number(opt?:numberOpt):any
-    static String(opt?:basic):any
+    static String(opt?:stringOpt):any
     static Boolean(opt?:basic):any
     static Null(opt?:basic):any
     static Any(opt?:any):any
@@ -54,7 +65,7 @@ declare class Skeletons {
     static Symbol(opt?:basic):any
     static typeof(data:any):string
 
-    validate (data:any, opt?:optionsIn):any
+    validate (data:any, opt?:optionsIn):Skeletons
 }
 
 export default Skeletons

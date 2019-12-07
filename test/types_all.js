@@ -37,6 +37,23 @@ describe('data normal SOP' ,function(){
       })
     }
   })
+  describe('strictEquals', () => {
+    const skeletonsEqualsTests = new Skeletons(Skeletons.Any({
+      strictEquals: 42
+    }))
+    it('strict equals', () => {
+      assert.strictEqual(skeletonsEqualsTests.validate(42).valid, true)
+    })
+    it('not strict equals', () => {
+      assert.strictEqual(skeletonsEqualsTests.validate('42').valid, false)
+    })
+    it('not equals', () => {
+      assert.strictEqual(skeletonsEqualsTests.validate(12).valid, false)
+    })
+    it('not equals at all', () => {
+      assert.strictEqual(skeletonsEqualsTests.validate('12').valid, false)
+    })
+  })
   describe('validator' ,function(){
     describe('validator not function' ,function(){
       types.forEach((type,i)=>{

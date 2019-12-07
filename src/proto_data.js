@@ -12,12 +12,28 @@ export default function (Skeletons) {
       if (typeof opt.validator !== 'function') return this.warn(depth, 'options.validator must be a function', 99)
       if (opt.validator(data_deep, this.root.data, this.root.store)!== true) return this.warn(depth, 'validation failed', 2)
     }
+    if ('strictEquals' in opt && opt.strictEquals !== data_deep) {
+      return this.warn(depth, 'options.strictEquals: actual value isn\'t strict equals to the expected value', 2)
+    }
     return 200 //keep check extra options
   }
+  Skeletons.prototype.checkMinMax = function (opt, depth, type, minName, maxName, value) {
+    if (opt[minName] !== undefined) {
+      if (typeof opt[minName] !== 'number') return this.warn(depth, `options.${minName} must be a number`, 99)
+      if (value < opt[minName]) return this.warn(depth, `Skeletons.${type}({ ${minName} }), ${value} is lower than ${opt[minName]}`, 2)
+    }
+    if (opt[maxName] !== undefined) {
+      if (typeof opt[maxName] !== 'number') return this.warn(depth, `options.${maxName} must be a number`, 99)
+      if (value > opt[maxName]) return this.warn(depth, `Skeletons.${type}({ ${maxName} }), ${value} is greater than ${opt[maxName]}`, 2)
+    }
+    return 200 // keep check extra options
+  }
   Skeletons.prototype.ArrayFn = function (opt, depth) {
-    const status = this.SOP(opt, depth, 'array', (val) => Array.isArray(val))
-    if (status != 200) return
+    let status = this.SOP(opt, depth, 'array', (val) => Array.isArray(val))
+    if (status !== 200) return
     const { data_deep } = this.getDepth(depth)
+    status = this.checkMinMax(opt, depth, 'Array', 'minLength', 'maxLength', data_deep.length)
+    if (status !== 200) return
     if (opt.item) {
       const item_schema = new Skeletons(opt.item) 
       data_deep.forEach((d,i) => {
@@ -107,13 +123,23 @@ export default function (Skeletons) {
     this.SOP(opt, depth, 'null', (val)=> Skeletons.typeof(val)==='null')
   }
   Skeletons.prototype.StringFn = function (opt, depth) {
-    this.SOP(opt, depth, 'string', (val) => typeof val === 'string')
+    let status = this.SOP(opt, depth, 'string', (val) => typeof val === 'string')
+    if (status === 200) {
+      const { data_deep } = this.getDepth(depth)
+      let status = this.checkMinMax(opt, depth, 'String', 'minLength', 'maxLength', data_deep.length)
+      if (status === 200 && opt.match !== undefined) {
+        if (!(opt.match instanceof RegExp)) return this.warn(depth, 'options.match must be a RegExp', 99)
+        if (!data_deep.match(opt.match)) this.warn(depth, 'Skeletons.String({ match }), value do not matches', 2)
+      }
+    }
   }
   Skeletons.prototype.NumberFn = function(opt, depth){
-    const status = this.SOP(opt, depth, 'number', (val) => typeof val === 'number')
+    let status = this.SOP(opt, depth, 'number', (val) => typeof val === 'number')
     if (status != 200) return
     const { data_deep } = this.getDepth(depth)
-    if(opt.allowNaN===false&& isNaN(data_deep)) this.warn(depth,'Skeletons.Number({ allowNaN:false }), NaN value not allowed',0)
+    if (opt.allowNaN === false && isNaN(data_deep)) return this.warn(depth, 'Skeletons.Number({ allowNaN:false }), NaN value not allowed', 0)
+    status = this.checkMinMax(opt, depth, 'Number', 'min', 'max', data_deep)
+    if (status !== 200) return
   }
   Skeletons.prototype.BooleanFn = function (opt, depth) {
     this.SOP(opt, depth, 'boolean', (val) => typeof val === 'boolean')

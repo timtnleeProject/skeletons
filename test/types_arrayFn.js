@@ -85,4 +85,56 @@ describe('Skeletons.Array', function(){
       assert.strictEqual(rule.valid, true)
     })
   })
+  describe('minLength', () => {
+    const skeletonsInvalidMin = new Skeletons(Skeletons.Array({
+      minLength: '3'
+    }), {
+      console: false
+    });
+    const skeletonsMinTest = new Skeletons(Skeletons.Array({
+      minLength: 3
+    }), {
+      console: false
+    });
+    it('invalid schema', () => {
+      assert.throws(() => {
+        skeletonsInvalidMin.validate([])
+      })
+    })
+    it('less', () => {
+      assert.strictEqual(skeletonsMinTest.validate([]).valid, false);
+    })
+    it('equals', () => {
+      assert.strictEqual(skeletonsMinTest.validate(['a', 'b', 'c']).valid, true);
+    })
+    it('more', () => {
+      assert.strictEqual(skeletonsMinTest.validate(['a', 'b', 'c', 'd']).valid, true);
+    })
+  })
+  describe('maxLength', () => {
+    const skeletonsInvalidMax = new Skeletons(Skeletons.Array({
+      maxLength: '3'
+    }), {
+      console: false
+    });
+    const skeletonsMaxTest = new Skeletons(Skeletons.Array({
+      maxLength: 3
+    }), {
+      console: false
+    });
+    it('invalid schema', () => {
+      assert.throws(() => {
+        skeletonsInvalidMax.validate([])
+      })
+    })
+    it('less', () => {
+      assert.strictEqual(skeletonsMaxTest.validate([]).valid, true);
+    })
+    it('equals', () => {
+      assert.strictEqual(skeletonsMaxTest.validate(['a', 'b', 'c']).valid, true);
+    })
+    it('more', () => {
+      assert.strictEqual(skeletonsMaxTest.validate(['a', 'b', 'c', 'd']).valid, false);
+    })
+  })
 })
