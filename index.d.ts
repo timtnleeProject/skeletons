@@ -9,7 +9,7 @@ interface basic {
   required?:boolean,
   default?:any,
   strictEquals?:any,
-  validator (value?:any, data?:any):boolean
+  validator?: (value?:any, data?:any) => boolean
 }
 
 interface numberOpt extends basic {
@@ -31,7 +31,7 @@ interface objectOpt extends basic {
 }
 
 interface mapObjectOpt extends basic {
-    keyValidator (key?:string, data?:any):boolean,
+    keyValidator?: (key?:string, data?:any) => boolean,
     item?:any
 }
 
